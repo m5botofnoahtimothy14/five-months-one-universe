@@ -20,7 +20,7 @@ function MiniPlayer() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <div className="paper-card mx-auto flex max-w-xl items-center gap-2 px-3 py-2">
-        <Link to="/music" className="flex min-w-0 flex-1 items-center gap-2 rounded-xl" aria-label="open music player">
+        <div className="flex min-w-0 flex-1 items-center gap-2 rounded-xl">
           <span className={cn("grid h-9 w-9 shrink-0 place-items-center rounded-full bg-lavender", m.isPlaying && "animate-spin-slow")}>
             {m.current.cover ? (
               <img src={m.current.cover} alt="" className="h-9 w-9 rounded-full object-cover" />
@@ -32,7 +32,7 @@ function MiniPlayer() {
             <span className="block truncate text-sm font-bold">{m.current.title}</span>
             <span className="block text-xs text-muted-foreground">{m.isPlaying ? "now playing ♪" : "paused"}</span>
           </span>
-        </Link>
+        </div>
         <Button size="icon" variant="sticker" onClick={m.toggle} aria-label={m.isPlaying ? "pause" : "play"}>
           {m.isPlaying ? <Pause /> : <Play />}
         </Button>

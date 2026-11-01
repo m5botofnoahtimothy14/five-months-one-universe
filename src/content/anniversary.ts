@@ -52,13 +52,14 @@ export const welcome = {
 
 export const sections = [
   { path: "/", label: "Welcome", emoji: "🏠" },
-  { path: "/quiz", label: "Husband Quiz", emoji: "📝" },
-  { path: "/affection", label: "Affection Machine", emoji: "💗" },
-  { path: "/pods", label: "Comfort Pods", emoji: "🫧" },
-  { path: "/timeline", label: "Our 5 Months", emoji: "📅" },
-  { path: "/letter", label: "The Letter", emoji: "💌" },
-  { path: "/music", label: "Our Songs", emoji: "🎧" },
-  { path: "/surprise", label: "Final Surprise", emoji: "🎁" },
+  // Pages still being built — re-enabled as each page is added:
+  // { path: "/quiz", label: "Husband Quiz", emoji: "📝" },
+  // { path: "/affection", label: "Affection Machine", emoji: "💗" },
+  // { path: "/pods", label: "Comfort Pods", emoji: "🫧" },
+  // { path: "/timeline", label: "Our 5 Months", emoji: "📅" },
+  // { path: "/letter", label: "The Letter", emoji: "💌" },
+  // { path: "/music", label: "Our Songs", emoji: "🎧" },
+  // { path: "/surprise", label: "Final Surprise", emoji: "🎁" },
 ] as const;
 
 export type SectionPath = (typeof sections)[number]["path"];
