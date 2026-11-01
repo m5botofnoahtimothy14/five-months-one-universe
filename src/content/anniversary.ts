@@ -23,8 +23,8 @@ export type MascotProp =
 export type Tone = "blush" | "lavender" | "peach" | "butter" | "mint" | "sky";
 
 export const people = {
-  her: "Rida",
-  herCute: "Ridaaaa",
+  her: "Khadija",
+  herCute: "Khadijaaaa",
   him: "Noah",
   himCute: "NOAHHHH",
   herNicknameForHim: "husband",
@@ -52,14 +52,11 @@ export const welcome = {
 
 export const sections = [
   { path: "/", label: "Welcome", emoji: "🏠" },
-  // Pages still being built — re-enabled as each page is added:
-  // { path: "/quiz", label: "Husband Quiz", emoji: "📝" },
-  // { path: "/affection", label: "Affection Machine", emoji: "💗" },
-  // { path: "/pods", label: "Comfort Pods", emoji: "🫧" },
-  // { path: "/timeline", label: "Our 5 Months", emoji: "📅" },
-  // { path: "/letter", label: "The Letter", emoji: "💌" },
-  // { path: "/music", label: "Our Songs", emoji: "🎧" },
-  // { path: "/surprise", label: "Final Surprise", emoji: "🎁" },
+  { path: "/quiz", label: "The quiz", emoji: "📝" },
+  { path: "/machine", label: "Affection machine", emoji: "💗" },
+  { path: "/teddy", label: "Your teddy", emoji: "🧸" },
+  { path: "/letter", label: "The letter", emoji: "💌" },
+  { path: "/surprise", label: "The surprise", emoji: "🎁" },
 ] as const;
 
 export type SectionPath = (typeof sections)[number]["path"];
@@ -94,7 +91,7 @@ export const quiz = {
   questions: [
     {
       question: "How does Noah say your name when he's being DRAMATIC?",
-      options: ["“Rida.”", "“BABBBBBYYYYYYYY”", "“hello madam”", "he just sends a thumbs up 👍"],
+      options: ["“Khadija.”", "“BABBBBBYYYYYYYY”", "“hello madam”", "he just sends a thumbs up 👍"],
       correct: 1,
       rightReply: "YESSSS the full dramatic version, with extra Y's. you know me too well 😭",
       wrongReply: "noooo it's “BABBBBBYYYYYYYY”!! with at least 8 Y's. minimum.",
@@ -128,7 +125,7 @@ export const quiz = {
       wrongReply: "BRO we drop everything!! gossip partners forever 🫖",
     },
     {
-      question: "What does Rida call Noah?",
+      question: "What does Khadija call Noah?",
       options: ["Mr. Noah sir", "Husband", "That guy", "Customer service"],
       correct: 1,
       rightReply: "husband reporting for duty 🫡 (annoying edition)",
@@ -182,7 +179,7 @@ export const affection = {
     "sleepy-eyes 😴",
     "babyyyy",
     "my gossip partner ☕",
-    "Ridaaaa bear",
+    "Khadijaaaa bear",
     "duet queen 🎤",
     "cutie patootie (sorry)",
     "my favourite human",
@@ -219,9 +216,9 @@ export const affection = {
     "warning: husband is about to send BABBBBBYYYYYYYY",
   ],
   noahExe: [
-    ["> booting noah.exe…", "> loading feelings… [██████████] 100%", "> ERROR: too much love detected", "> solution: hug Rida ✓"],
+    ["> booting noah.exe…", "> loading feelings… [██████████] 100%", "> ERROR: too much love detected", "> solution: hug Khadija ✓"],
     ["> starting noah.exe v5.0 (five months edition)", "> checking memory: sleepy eyes at assembly ✓", "> checking memory: late-night chats ✓", "> status: still obsessed"],
-    ["> noah.exe running", "> tease_rida() executed successfully", "> sing_together() queued", "> output: BABBBBBYYYYYYYY"],
+    ["> noah.exe running", "> tease_khadija() executed successfully", "> sing_together() queued", "> output: BABBBBBYYYYYYYY"],
     ["> noah.exe update available!", "> new features: more love, more annoying", "> installing… done", "> please restart your smile 😁"],
   ],
   squeezeBear: ["squeak!", "eeep!", "hehe that tickles", "BEAR HUG ACTIVATED", "*happy bear noises*", "more squeezes pls"],
@@ -269,7 +266,7 @@ export const pods: Pod[] = [
       "heyyy babyyy. it's okay to be sad, you don't have to fix it right now yk. just breathe a lil. i'm right here (in your phone, but still)",
       "BRO who made my baby sad. tell me. i'll fight them. or at least glare very aggressively from far away 😤 but fr, you can tell me anything, whenever you want",
       "sending you the biggest hug through the screen rn 🫂 squeeze your pillow and pretend it's me. it's a very handsome pillow now",
-      "sad days are allowed. you're still the same amazing Rida even on the grey ones. i'll be here when the sun comes back, and before that too",
+      "sad days are allowed. you're still the same amazing Khadija even on the grey ones. i'll be here when the sun comes back, and before that too",
     ],
   },
   {
@@ -449,7 +446,7 @@ export const letter = {
     { type: "sticker", kind: "teddyHug", caption: "*virtual hug loading*" },
     { type: "p", text: "thank you for being you. for the patience, the laughs, the sleepy goodnights. you're so so special to me yk. here's to month six and way, way more" },
   ] satisfies LetterBlock[],
-  closing: "HAPPY FIVE MONTHSSSS, MY Ridaaaa BABYYYYYYYY!!",
+  closing: "HAPPY FIVE MONTHSSSS, MY Khadijaaaa BABYYYYYYYY!!",
   signature: "YOUR ANNOYING HUSBAND, NOAHHHH ♡",
 };
 
