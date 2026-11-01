@@ -1,10 +1,10 @@
 import {createFileRoute,Link} from "@tanstack/react-router";
 import {Heart,Sparkles,Star} from "lucide-react";
-import {AnniversaryShell} from "@/components/layout/AppShell";
+import {} from "@/components/layout/AppShell";
 import {welcome,pods} from "@/content/anniversary";
 import {Mascot} from "@/components/art/Mascot";
 export const Route=createFileRoute("/")({component:Home});
-function Home(){return <AnniversaryShell>
+function Home(){return 
   <section className="welcome-hero">
     <div className="welcome-copy"><span className="eyebrow"><Sparkles size={14}/> A LITTLE WORLD MADE BY NOAH</span>
       <p className="script-line">for my favourite human, Khadija</p><h1>FIVE<br/><em>MONTHSSSS!!</em></h1>
@@ -24,4 +24,4 @@ function Home(){return <AnniversaryShell>
     <Link to="/pods" className="text-link">Open all comfort pods →</Link>
   </section>
   <p className="home-signoff"><Star size={14} fill="currentColor"/> no pressure, no rush. just a little world made for you. <Heart size={14} fill="currentColor"/></p>
-</AnniversaryShell>}
+}
