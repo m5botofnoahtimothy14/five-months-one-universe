@@ -1,41 +1,50 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
-import { people, welcome, quiz, affection, pods, timeline, letter, music, surprise } from "@/content/anniversary";
+import {
+  people,
+  welcome,
+  quiz,
+  affection,
+  pods,
+  timeline,
+  letter,
+  music,
+  surprise,
+} from "@/content/anniversary";
 import { Mascot } from "@/components/art/Mascot";
 import { FloatingField, HeartDoodle, SparkleDoodle } from "@/components/art/Doodles";
 import { SecretStar } from "@/components/SecretStar";
 
-export const Route = createFileRoute("/")({ head:()=>({meta:[{title:"FIVE MONTHSSSS!! — Five Months, One Universe"},{name:"description",content:"A tiny scrapbook for a five-month anniversary."},{name:"robots",content:"noindex, nofollow"}]}),component:Anniversary });
-const nav=[["quiz","Husband quiz","📝"],["machine","Affection machine","💗"],["pods","Comfort pods","🫧"],["timeline","Our five months","📅"],["letter","The letter","💌"],["music","Our songs","🎧"],["surprise","Final surprise","🎁"]] as const;
-const art:Record<string,string>={mwah:"💋",teddyHug:"🧸",bunnyHop:"🐰",hearts:"💗💞💕",reaction:"🥹",singing:"🎤",tea:"☕",sleepy:"😴"};
-const card="rounded-3xl border-2 border-border bg-paper p-5 shadow-[var(--shadow-sticker),var(--shadow-soft)] sm:p-7";
-const btn="rounded-full border-2 border-border bg-paper px-4 py-3 font-display font-semibold shadow-[var(--shadow-sticker)] transition hover:-translate-y-0.5 hover:border-primary disabled:opacity-40";
-const primary="rounded-full border-2 border-primary bg-primary px-5 py-3 font-display font-bold text-primary-foreground shadow-[var(--shadow-sticker)]";
-function Head({tag,title,sub}:{tag:string;title:string;sub?:string}){return <header className="mx-auto mb-7 max-w-2xl text-center"><p className="font-hand text-xl text-muted-foreground">{tag}</p><h2 className="mt-1 text-balance font-display text-3xl font-bold sm:text-4xl">{title}</h2>{sub&&<p className="mt-2 font-hand text-xl text-muted-foreground">{sub}</p>}</header>}
-function Card({children}:{children:React.ReactNode}){return <div className={card}>{children}</div>}
-function Anniversary(){
- const [q,Sq]=useState(0),[answers,Sa]=useState<number[]>([]),[done,Sd]=useState(false),[feedback,Sf]=useState("");
- const [msg,Sm]=useState("the machine is waiting for your command…"),[kisses,Sk]=useState(0),[secretCount,Ssc]=useState(0),[secret,Ss]=useState("");
- const [notes,Sn]=useState<Record<string,string>>({}),[giftCount,Sgc]=useState(0),[giftOpen,Sgo]=useState(false),[gifs,Sg]=useState<Record<string,string>>({});
- const [tracks,St]=useState<{name:string;url:string}[]>([]),[track,Str]=useState(0),[playing,Sp]=useState(false);
- const audio=useRef<HTMLAudioElement>(null);
- const score=useMemo(()=>answers.reduce((n,a,i)=>n+(a===quiz.questions[i]?.correct?1:0),0),[answers]);
- const result=quiz.results.find(r=>done&&score/quiz.questions.length*100>=r.min);
- const pick=(a:string[])=>a[Math.floor(Math.random()*a.length)]??"";
- const answer=(a:number)=>{const item=quiz.questions[q];Sa(old=>[...old,a]);Sf(a===item.correct?item.rightReply:item.wrongReply);if(q===quiz.questions.length-1)Sd(true);else Sq(q+1)};
- const addSongs=(e:React.ChangeEvent<HTMLInputElement>)=>{const fs=Array.from(e.target.files??[]).filter(f=>/\.(mp3|m4a|wav|ogg)$/i.test(f.name));St(old=>[...old,...fs.map(f=>({name:f.name.replace(/\.[^.]+$/,""),url:URL.createObjectURL(f)}))]);e.target.value=""};
- const play=(i:number)=>{Str(i);Sp(true);window.setTimeout(()=>audio.current?.play().catch(()=>Sp(false)),0)};
- const blocks=letter.blocks;
- return <main className="relative overflow-hidden"><FloatingField count={18}/><SecretStar className="absolute left-4 top-5 z-10"/><SecretStar className="absolute right-5 top-96 z-10" size="h-5 w-5"/><SparkleDoodle className="absolute right-8 top-20 h-8 w-8 animate-twinkle"/><HeartDoodle className="absolute bottom-20 left-5 h-9 w-9 animate-wiggle"/>
- <section id="welcome" className="relative flex min-h-[calc(100dvh-5rem)] flex-col items-center justify-center px-4 py-12 text-center"><p className="font-hand text-xl text-muted-foreground">{welcome.kicker}</p><h1 className="text-shadow-pop mt-2 font-display text-5xl font-bold leading-none sm:text-7xl">{welcome.title}</h1><div className="mt-7 w-48 animate-bob sm:w-60"><Mascot animal="teddy" mood="love" prop="heart" title="Teddy holding a heart"/></div><p className="mt-5 max-w-lg font-hand text-2xl">{welcome.subtitle}</p><a className={primary+" mt-8"} href="#scrapbook">{welcome.button}</a><p className="mt-5 font-hand text-lg text-muted-foreground">{welcome.hint}</p></section>
- <section id="scrapbook" className="mx-auto max-w-5xl scroll-mt-24 px-4 py-8"><Card><p className="text-center font-hand text-lg">your tiny map of us</p><h2 className="text-center font-display text-3xl font-bold">PICK A LITTLE ADVENTURE ♡</h2><nav className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">{nav.map(([id,label,emoji])=><a key={id} href={"#"+id} className="rounded-2xl border-2 border-border bg-background p-3 transition hover:-translate-y-1"><span className="text-2xl">{emoji}</span><span className="mt-1 block font-display font-semibold">{label}</span></a>)}</nav></Card></section>
- <section id="quiz" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-12"><Head tag="a very serious examination (not really)" title={quiz.title} sub={quiz.intro}/><Card>{!done?<><div className="mb-4 flex justify-between font-hand text-lg"><span>Question {q+1} of {quiz.questions.length}</span><span>{Math.round((q+1)/quiz.questions.length*100)}%</span></div><div className="mb-5 h-2 rounded-full bg-blush"><div className="h-2 rounded-full bg-primary" style={{width:((q+1)/quiz.questions.length*100)+"%"}}/></div><h3 className="font-display text-2xl font-bold">{quiz.questions[q].question}</h3><div className="mt-5 grid gap-3 sm:grid-cols-2">{quiz.questions[q].options.map((o,i)=><button className={btn+" text-left"} key={o} onClick={()=>answer(i)}>{String.fromCharCode(65+i)}. {o}</button>)}</div>{feedback&&<p aria-live="polite" className="mt-4 rounded-xl bg-blush p-3 font-hand text-lg">{feedback}</p>}</>:<div className="text-center"><div className="mx-auto w-28"><Mascot animal="bunny" mood="love" prop="heart"/></div><p className="mt-3 font-hand text-xl">your score: {score}/{quiz.questions.length}</p><h3 className="font-display text-2xl font-bold">{result?.title}</h3><p className="mt-2 font-hand text-xl">{result?.message}</p><button className={primary+" mt-5"} onClick={()=>{Sq(0);Sa([]);Sd(false);Sf("")}}>TAKE IT AGAIN</button></div>}</Card></section>
- <section id="machine" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-12"><Head tag="100% Noah-powered. 0% chill." title={affection.title} sub={affection.subtitle}/><Card><div className="mx-auto w-28"><Mascot animal="teddy" mood="love" prop="heart"/></div><p aria-live="polite" className="mx-auto mt-3 min-h-20 max-w-xl rounded-2xl border-2 border-dashed border-primary/50 bg-blush/60 p-4 text-center font-hand text-xl">{msg}</p><div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
- <button className={primary} onClick={()=>{Sm(pick(affection.kissLines));Sk(n=>n+1)}}>PRESS FOR KISS 💋</button><button className={btn} onClick={()=>Sm("BABBBBBYYYYYYYY!!")}>PRESS FOR BABY</button><button className={btn} onClick={()=>Sm(pick(affection.missYou))}>I MISS YOU</button><button className={btn} onClick={()=>Sm(pick(affection.annoyNoah))}>ANNOY NOAH</button><button className={btn} onClick={()=>Sm(pick(affection.moreLove))}>MORE LOVE PLEASE</button><button className={btn} onClick={()=>Sm(pick(affection.husbandCheck))}>HUSBAND CHECK</button><button className={btn} onClick={()=>Sm(pick(affection.noahExe.flat()))}>NOAH.exe</button><button className={btn} onClick={()=>Sm(pick(affection.squeezeBear))}>SQUEEZE THE BEAR</button><button className={btn} onClick={()=>Sm(pick(affection.babySpam))}>BABY SPAM</button><button className={btn} onClick={()=>Sm(pick(affection.messages))}>GENERATE AFFECTION</button><button className={btn} onClick={()=>Sm(pick(affection.nicknames))}>NEW NICKNAME</button><button className={btn} onClick={()=>Ssc(n=>{if(n+1>=affection.secretUnlock.tapsNeeded){Ss(pick(affection.secretUnlock.reveals));return 0}return n+1})}>UNLOCK SECRET 🔒</button></div><p className="mt-4 text-center font-hand text-sm text-muted-foreground">virtual kisses delivered: {kisses} · {affection.secretUnlock.hint}</p>{secret&&<p className="mt-3 rounded-xl bg-butter p-3 text-center font-hand text-lg">{secret}</p>}<div className="mt-5 rounded-2xl bg-background p-4 text-center"><p className="font-display font-bold">{affection.doYouLove.question}</p><div className="mt-3 flex justify-center gap-3"><button className={primary} onClick={()=>Sm(affection.doYouLove.yesReply)}>{affection.doYouLove.yes}</button><button className={btn} onClick={()=>Sm(pick(affection.doYouLove.noDodges))}>{affection.doYouLove.no}</button></div></div></Card></section>
- <section id="pods" className="mx-auto max-w-5xl scroll-mt-24 px-4 py-12"><Head tag="tiny care packages from far away" title="COMFORT PODS" sub="pick the pod that matches the day. no pressure, just a little note."/><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{pods.map(p=><Card key={p.id}><div className="flex items-center gap-3"><div className="w-20 shrink-0"><Mascot {...p.mascot}/></div><div><h3 className="font-display text-xl font-bold">{p.emoji} {p.name}</h3><p className="font-hand text-lg text-muted-foreground">{p.teaser}</p></div></div><button className={primary+" mt-4 w-full"} onClick={()=>Sn(old=>({...old,[p.id]:pick(p.messages)}))}>OPEN THIS POD</button>{notes[p.id]&&<p aria-live="polite" className="mt-3 rounded-xl bg-blush/60 p-3 font-hand text-lg">{notes[p.id]}</p>}</Card>)}</div></section>
- <section id="timeline" className="mx-auto max-w-4xl scroll-mt-24 px-4 py-12"><Head tag="five little chapters" title="OUR FIVE MONTHS" sub="some moments are tiny. they still become the whole universe."/><div className="space-y-5">{timeline.map(m=><Card key={m.month}><div className="flex items-center gap-3"><span className="grid h-12 w-12 place-items-center rounded-full bg-blush text-2xl">{m.sticker}</span><div><p className="font-hand text-sm text-muted-foreground">MONTH {m.month}</p><h3 className="font-display text-2xl font-bold">{m.title}</h3></div></div><p className="mt-4 font-hand text-xl leading-relaxed">{m.story}</p><p className="mt-3 text-xs text-muted-foreground">{m.label}</p><div className="mt-3 flex flex-wrap gap-2">{m.moments.map(x=><span key={x} className="rounded-full bg-lavender/60 px-3 py-1 text-sm">{x}</span>)}</div></Card>)}</div></section>
- <section id="letter" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-12"><Head tag="written in the only language Noah knows" title={letter.title}/><Card><h3 className="font-display text-2xl font-bold">{letter.greeting}</h3><div className="mt-5 space-y-5">{blocks.map((b,i)=>b.type==="p"?<p key={i} className="font-hand text-xl leading-relaxed">{b.text}</p>:b.type==="sticker"?<div key={i} className="flex flex-col items-center py-2 text-center"><span className="animate-bob text-5xl">{art[b.kind]}</span>{b.caption&&<span className="mt-1 font-hand text-lg">{b.caption}</span>}</div>:<div key={i} className="rounded-2xl border-2 border-dashed border-primary/50 bg-background p-3 text-center"><span className="text-5xl">{art[b.fallback]}</span><p className="mt-2 font-hand">{b.caption}</p><label className="mt-2 inline-flex cursor-pointer rounded-full border border-border bg-paper px-4 py-2 text-sm font-semibold">Add your GIF<input className="sr-only" type="file" accept="image/*" onChange={e=>{const f=e.target.files?.[0];if(f)Sg(old=>({...old,[b.slotId]:URL.createObjectURL(f)}))}}/></label>{gifs[b.slotId]&&<img className="mx-auto mt-3 max-h-56 rounded-xl" src={gifs[b.slotId]} alt={b.caption}/>}</div>)}</div><div className="mt-7 border-t-2 border-dashed border-primary/40 pt-5"><p className="font-display text-xl font-bold">{letter.closing}</p><p className="mt-3 font-hand text-xl">{letter.signature}</p></div></Card></section>
- <section id="music" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-12"><Head tag="the songs Noah chooses" title={music.title} sub={music.subtitle}/><Card><div className="flex items-center gap-4"><div className="grid h-16 w-16 place-items-center rounded-2xl bg-lavender text-3xl">🎧</div><div className="min-w-0"><h3 className="truncate font-display text-xl font-bold">{tracks[track]?.name??"your playlist starts here"}</h3><p className="text-sm text-muted-foreground">{tracks.length?"Track "+(track+1)+" of "+tracks.length:"No songs added yet"}</p></div></div><audio ref={audio} src={tracks[track]?.url} onEnded={()=>tracks.length>1?play((track+1)%tracks.length):Sp(false)} onPlay={()=>Sp(true)} onPause={()=>Sp(false)}/><div className="mt-5 flex justify-center gap-3"><button className={btn} disabled={!tracks.length} onClick={()=>play((track-1+tracks.length)%tracks.length)}>PREVIOUS</button><button className={primary} disabled={!tracks.length} onClick={()=>{if(playing){audio.current?.pause();Sp(false)}else audio.current?.play().catch(()=>Sp(false))}}>{playing?"PAUSE":"PLAY"}</button><button className={btn} disabled={!tracks.length} onClick={()=>play((track+1)%tracks.length)}>NEXT</button></div><label className="mt-5 flex cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-primary/60 bg-blush/40 p-5 text-center font-display font-semibold">＋ ADD YOUR SONGS (MP3, M4A, WAV, OGG)<input className="sr-only" type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" multiple onChange={addSongs}/></label><p className="mt-3 text-center text-xs text-muted-foreground">Selected songs stay in this browser session. To include songs for every visitor, add files to public/assets/music and configure the bundled list in src/content/anniversary.ts.</p>{tracks.length>0&&<ol className="mt-4 space-y-2">{tracks.map((t,i)=><li key={t.url} className="rounded-xl bg-background p-3"><button className="w-full truncate text-left font-semibold" onClick={()=>play(i)}>{i===track&&playing?"♫ ":""}{t.name}</button></li>)}</ol>}</Card></section>
- <section id="surprise" className="mx-auto max-w-3xl scroll-mt-24 px-4 py-12 pb-24"><Head tag="okay. one last thing." title={surprise.title} sub="there's a tiny gift waiting. tap it three times."/><Card><div className="text-center">{!giftOpen?<><button aria-label="Tap to open the mystery gift" className="text-8xl transition hover:scale-110" onClick={()=>{const n=giftCount+1;Sgc(n);if(n>=surprise.tapsToOpen)Sgo(true)}}>🎁</button><p className="mt-4 font-hand text-xl">{giftCount?"almost there… "+(surprise.tapsToOpen-giftCount)+" more":surprise.boxHint}</p></>:<div className="animate-pop-in"><div className="mx-auto w-36"><Mascot animal="teddy" mood="love" prop="heart"/></div><h3 className="mt-3 font-display text-3xl font-bold">{surprise.finalTitle}</h3><div className="mx-auto mt-4 max-w-lg space-y-3">{surprise.finalMessage.map(x=><p key={x} className="font-hand text-xl">{x}</p>)}</div><p className="mt-5 font-hand text-xl">{surprise.finalSign}</p><button className={primary+" mt-5"} onClick={()=>{Sgo(false);Sgc(0);document.getElementById("welcome")?.scrollIntoView({behavior:"smooth"})}}>{surprise.replay}</button></div>}</div></Card></section>
- <footer className="px-4 pb-10 text-center font-hand text-lg text-muted-foreground">made with too many hearts, a teddy bear, and an unreasonable amount of BABBBBBYYYYYYYY ♡</footer></main>;
-}
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "FIVE MONTHSSSS!! — Five Months, One Universe" },
+      { name: "description", content: "A tiny scrapbook for a five-month anniversary." },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
+  component: Anniversary,
+});
+const nav = [
+  ["quiz", "Husband quiz", "📝"],
+  ["machine", "Affection machine", "💗"],
+  ["pods", "Comfort pods", "🫧"],
+  ["timeline", "Our five months", "📅"],
+  ["letter", "The letter", "💌"],
+  ["music", "Our songs", "🎧"],
+  ["surprise", "Final surprise", "🎁"],
+] as const;
+const art: Record<string, string> = {
+  mwah: "💋",
+  teddyHug: "🧸",
+  bunnyHop: "🐰",
+  hearts: "💗💞💕",
+  reaction: "🥹",
+  singing: "🎤",
+  tea: "☕",
+  sleepy: "😴",
+};
+const card =
+  "rounded-3xl border-2 border-border bg-paper p-5 shadow-[var(--shadow-sticker),var(--shadow-soft)] sm:p-7";
+const btn =
+  "rounded-full border-2 border-border bg-paper px-4 py-3 font-display font-semibold shadow-[var(--shadow-stick���q�^
