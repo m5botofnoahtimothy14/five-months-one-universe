@@ -113,6 +113,10 @@
   --tape: oklch(0.9 0.06 85 / 70%);
   --terminal: oklch(0.28 0.05 320);
   --terminal-foreground: oklch(0.9 0.1 150);
+  --fur-teddy: oklch(0.8 0.075 60);
+  --fur-teddy-light: oklch(0.92 0.045 70);
+  --fur-bunny: oklch(0.985 0.012 85);
+  --tear: oklch(0.82 0.08 230);
 
   --chart-1: oklch(0.68 0.16 2);
   --chart-2: oklch(0.7 0.1 300);
