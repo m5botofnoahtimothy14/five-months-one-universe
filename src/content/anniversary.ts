@@ -54,12 +54,19 @@ export const sections = [
   { path: "/", label: "Welcome", emoji: "🏠" },
   { path: "/quiz", label: "The quiz", emoji: "📝" },
   { path: "/machine", label: "Affection machine", emoji: "💗" },
+  { path: "/timeline", label: "Our five months", emoji: "📸" },
   { path: "/teddy", label: "Your teddy", emoji: "🧸" },
   { path: "/letter", label: "The letter", emoji: "💌" },
   { path: "/surprise", label: "The surprise", emoji: "🎁" },
 ] as const;
 
 export type SectionPath = (typeof sections)[number]["path"];
+
+/** Extra pages that live outside the guided journey (always in the menu). */
+export const extraPages = [
+  { path: "/pods", label: "Comfort pods", emoji: "🫂" },
+  { path: "/music", label: "Our playlist", emoji: "🎵" },
+] as const;
 
 /* ---------------- HIDDEN SURPRISES (tiny clickable stars) ---------------- */
 
@@ -184,6 +191,16 @@ export const affection = {
     "cutie patootie (sorry)",
     "my favourite human",
     "little troublemaker",
+  ],
+  compliments: [
+    "your laugh could power a whole city fr",
+    "you're cute even when you're sleepy. ESPECIALLY when you're sleepy",
+    "you have the best taste in gossip. elite tea curator ☕",
+    "your voice when you sing?? illegal levels of cute 🎤",
+    "you make my phone the happiest place on earth",
+    "you're kind in a way that makes people feel safe",
+    "you're smart, funny AND you put up with me. legend",
+    "you're my favourite person to annoy and my favourite person, period",
   ],
   kissLines: ["MWAAAAHHHH 💋", "mwah mwah mwah", "kiss delivered ✅", "*sends 1 virtual kiss across the distance*", "smooch!!"],
   missYou: [
@@ -446,7 +463,7 @@ export const letter = {
     { type: "sticker", kind: "teddyHug", caption: "*virtual hug loading*" },
     { type: "p", text: "thank you for being you. for the patience, the laughs, the sleepy goodnights. you're so so special to me yk. here's to month six and way, way more" },
   ] satisfies LetterBlock[],
-  closing: "HAPPY FIVE MONTHSSSS, MY Khadijaaaa BABYYYYYYYY!!",
+  closing: "HAPPY FIVE MONTHSSSS, MY KHADIJAAAA BABYYYYYYYY!!",
   signature: "YOUR ANNOYING HUSBAND, NOAHHHH ♡",
 };
 
