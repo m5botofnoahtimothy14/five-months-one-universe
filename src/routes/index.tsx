@@ -14,7 +14,7 @@ function Home() {
           <p className="script-line">for my favourite human, Khadija</p>
           <h1>FIVE<br /><em>MONTHSSSS!!</em></h1>
           <p className="hero-description">
-            Five months of us. A thousand little feelings. One very annoying husband who made you an entire universe.
+            five months already?? i made this little corner for you, with all my random ideas, our silly moments, and a LOT of BABYYYYs.
           </p>
           <Link to="/quiz" className="primary-cta">{welcome.button} <span>↗</span></Link>
           <div className="hero-footnote">✦ best experienced with sound on</div>
