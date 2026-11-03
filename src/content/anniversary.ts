@@ -68,7 +68,7 @@ export type SectionPath = (typeof sections)[number]["path"];
 /** Extra pages that live outside the guided journey (always in the menu). */
 export const extraPages = [
   { path: "/pods", label: "Comfort pods", emoji: "🫂" },
-  { path: "/music", label: "Our playlist", emoji: "🎵" },
+  { path: "/music", label: "Our soundtrack", emoji: "🎵" },
 ] as const;
 
 /* ---------------- HIDDEN SURPRISES (tiny clickable stars) ---------------- */
@@ -97,63 +97,63 @@ export type QuizQuestion = {
 
 export const quiz = {
   title: "HOW WELL DO YOU KNOW YOUR HUSBANDDDD?",
-  intro: "no pressure. ok a little pressure. jk jk there's literally no wrong way to love me hehe",
+  intro: "eight questions, one very smug boyfriend, and absolutely no prize except bragging rights + kisses",
   questions: [
     {
-      question: "When Noah texts “ok goodnight” at 2am, what ACTUALLY happens?",
-      options: ["He goes to sleep like a responsible adult", "You both keep texting for 47 more minutes", "His phone catches fire", "He writes a formal apology letter"],
-      correct: 1,
-      rightReply: "EXACTLY. “goodnight” is a suggestion, not a commitment 😭",
-      wrongReply: "babyyy you KNOW “goodnight” means 47 more minutes of texting. minimum.",
+      question: "Noah says “goodnight baby” at 2am. How long until one of you sends another message?",
+      options: ["Seven seconds. “wait one more thing”", "A sensible, adult eight hours", "Until the sun files a noise complaint", "He sends a calendar invite for tomorrow"],
+      correct: 0,
+      rightReply: "Correct: “goodnight” is a suggestion and “one more thing” is a legally binding sequel 😭",
+      wrongReply: "Baby, “goodnight” is just the opening scene. The bonus episode is at least 47 minutes.",
     },
     {
-      question: "What happens to Noah when you call him “husband”?",
-      options: ["He pretends not to hear", "He melts. Every. Single. Time.", "He files a complaint", "He turns into a robot"],
+      question: "What is the scientifically documented effect of Khadija calling Noah “husband”?",
+      options: ["He suddenly remembers 14 errands", "Instant melting. Zero structural integrity.", "He requests a title review", "A tiny violin starts playing"],
       correct: 1,
-      rightReply: "guilty 🥹 i melt like ice cream in may. don't expose me",
-      wrongReply: "nope, he MELTS. full puddle. very embarrassing (keep doing it)",
+      rightReply: "Guilty 🥹 one “husband” and I become a very happy puddle. Please continue your research.",
+      wrongReply: "Nope, I melt immediately. The husband title has devastatingly cute side effects.",
     },
     {
-      question: "Someone says “I have tea ☕”. What is the correct protocol?",
-      options: ["Discuss it calmly over actual tea", "Drop EVERYTHING and gossip immediately", "Forward it to HR", "Save it for the monthly meeting"],
+      question: "Your girlfriend texts “BABE. I have tea ☕”. Noah's official boyfriend duty is…",
+      options: ["Ask if the tea is ethically sourced", "Drop everything and say “I'M LISTENING”", "Schedule a quarterly gossip review", "Pretend the signal is bad"],
       correct: 1,
-      rightReply: "protocol followed perfectly. gossip partners for LIFE 🫖",
-      wrongReply: "BRO. we drop everything!! actual tea is irrelevant. it's about the GOSSIP",
+      rightReply: "Boyfriend of the year behavior. The tea is hot; my attention is hotter 🫖",
+      wrongReply: "Incorrect, babe. The correct response is “I'M LISTENING” followed by immediate details.",
     },
     {
-      question: "Noah's love language, ranked by scientific evidence:",
-      options: ["Teasing you 24/7", "Off-key singing duets", "Full-volume BABBBBBYYYYYYYY", "All of the above. Simultaneously."],
+      question: "Noah's three-part plan for being the world's most annoying boyfriend is…",
+      options: ["Tease you 24/7", "Sing off-key", "Yell BABYYYY", "All three, often in one voice note"],
       correct: 3,
-      rightReply: "MULTITASKING KING 👑 i do all three at once and i'm not sorry",
-      wrongReply: "trick question babyyy — it's ALL of them. at the same time. constantly.",
+      rightReply: "A multitasking king 👑 deeply in love, slightly off-key, and extremely loud about it.",
+      wrongReply: "Trick question, baby: all of them. Sometimes in the same voice note.",
     },
     {
-      question: "Who wins when we argue about who misses the other more?",
-      options: ["Noah, and he never lets it go", "The United Nations", "It ends in a tie, every single time", "Nobody. Everyone cries"],
+      question: "In the highly competitive sport of “who misses who more,” who takes home the trophy?",
+      options: ["Noah (he made the trophy himself)", "Khadija, undefeated forever", "A tie, then 20 minutes of arguing", "The distance, unfortunately"],
       correct: 2,
-      rightReply: "correct!! it's always a tie because we're disgustingly evenly matched 💗",
-      wrongReply: "it's ALWAYS a tie!! we've never once settled it and we never will hehe",
+      rightReply: "Exactly. A tie, followed by a rematch, followed by “no, I miss you more” 💗",
+      wrongReply: "It's always a tie. The judges (both of us) are wildly biased and refuse to end the match.",
     },
     {
-      question: "Noah's “5 more minutes” in the morning means:",
-      options: ["5 minutes. literally 5.", "Somewhere between 30 minutes and never", "A secret husband unit of time", "He's already awake?? since when"],
+      question: "Noah says “I’ll call in five minutes.” Which unit of time is he using?",
+      options: ["Actual minutes, like a responsible man", "Boyfriend minutes: an optimistic estimate", "One Khadija-sized episode of gossip", "Five business days"],
       correct: 1,
-      rightReply: "you know me too well 😭 my “5 minutes” is a vibe, not a measurement",
-      wrongReply: "babyyy. my “5 minutes” has never once meant 5 minutes. not once in history",
+      rightReply: "You know me too well 😭 “five minutes” is a loving intention, not a calibrated instrument.",
+      wrongReply: "Baby, you know my timekeeping is powered by vibes and the desire to hear your voice.",
     },
     {
-      question: "Which of these has Noah DEFINITELY done mid-conversation with you?",
-      options: ["Said “one sec” and vanished for 40 minutes", "Walked into a door", "Typed “hahaha” then said “wait what”", "All of the above. He's a menace"],
+      question: "What is Noah most likely to do while trying to flirt with his own girlfriend?",
+      options: ["Send a voice note with a surprise chorus", "Call you cute, then immediately get shy", "Forget his sentence because you smiled", "All of the above. A professional romantic."],
       correct: 3,
-      rightReply: "MENACE CONFIRMED ✅ i contain multitudes and zero shame",
-      wrongReply: "it's all of the above babyyy. your husband is a certified menace 😭",
+      rightReply: "Certified boyfriend menace ✅ professional romantic, amateur at keeping a straight face.",
+      wrongReply: "All of the above, obviously. I am very smooth until you smile at me 😭",
     },
     {
-      question: "The first time Noah saw you, you had…",
-      options: ["Sunglasses on", "Sleepy eyes at assembly", "A clown nose", "A megaphone"],
+      question: "What tiny detail from the first time Noah saw Khadija is still lodged in his heart?",
+      options: ["A dramatic entrance soundtrack", "Those sleepy eyes at assembly 🥹", "A secret superhero cape", "The world's smallest megaphone"],
       correct: 1,
-      rightReply: "sleepy eyes at assembly 🥹 i still think about that moment fr",
-      wrongReply: "it was your sleepy eyes at assembly!! i remember it sooo clearly",
+      rightReply: "Those sleepy eyes 🥹 still one of my favorite memories, rent-free in my heart.",
+      wrongReply: "Your sleepy eyes at assembly! I remember that little moment so clearly 🥹",
     },
   ] satisfies QuizQuestion[],
   /** results by percentage score (min is inclusive) */
@@ -283,10 +283,10 @@ export const pods: Pod[] = [
     mascot: { animal: "teddy", mood: "sad", prop: "heart" },
     teaser: "for when the day feels heavy",
     messages: [
-      "heyyy babyyy. it's okay to be sad, you don't have to fix it right now yk. just breathe a lil. i'm right here (in your phone, but still)",
-      "BRO who made my baby sad. tell me. i'll fight them. or at least glare very aggressively from far away 😤 but fr, you can tell me anything, whenever you want",
-      "sending you the biggest hug through the screen rn 🫂 squeeze your pillow and pretend it's me. it's a very handsome pillow now",
-      "sad days are allowed. you're still the same amazing Khadija even on the grey ones. i'll be here when the sun comes back, and before that too",
+      "Hey, my love. You don't have to solve the whole day right now. Take one slow breath; your boyfriend is in your corner, no pep talk required.",
+      "Who upset my favorite person? I am preparing one stern long-distance glare 😤 But really, I'm here to listen whenever you want.",
+      "Sending the biggest screen-sized hug 🫂 Squeeze your pillow for me; I promise to make the real version much better when we're together.",
+      "A hard day doesn't change how wonderful you are. You can be sad and still be my favorite person, all at once.",
     ],
   },
   {
@@ -297,10 +297,10 @@ export const pods: Pod[] = [
     mascot: { animal: "bunny", mood: "crying", prop: "tissue" },
     teaser: "tissues + tiny hugs included",
     messages: [
-      "awww babyyy cry it out, it's okay. crying isn't weak, it just means you feel a lot, and that's one of my favourite things about you 🥺",
-      "here's a virtual tissue 🧻 and another one. and the whole box. take your time okayyy",
-      "i wish i could wipe your tears myself rn. the distance is so annoying. but imagine me sitting next to you being quiet (for once) hehe",
-      "after you're done crying, drink some water okay? and then text me if you want. or don't. i'm not going anywhere",
+      "Cry if you need to, baby. You never have to make your feelings smaller for me. I love your soft heart, even on the soggy days 🥺",
+      "One virtual tissue 🧻, then the whole box. Take all the time you need; there is no timer on being okay.",
+      "I wish I could sit beside you and hold your hand. For now, imagine me being quiet and very carefully not making a terrible joke.",
+      "When you're ready, have a little water. Text me if company would help; quiet is okay too. I'm still right here.",
     ],
   },
   {
@@ -311,10 +311,10 @@ export const pods: Pod[] = [
     mascot: { animal: "teddy", mood: "love", prop: "hotWaterBottle" },
     teaser: "cosy mode activated",
     messages: [
-      "hiii babyyy, cosy mode ON 🌸 if you feel like it: blanket, something warm to hold, your comfiest clothes. you deserve the softest day",
-      "you don't have to be productive today yk. resting counts as doing something. i'm proud of you anyway hehe",
-      "if you want a distraction i'm literally one text away. i'll send memes, gossip, dramatic BABBBBBYYYYYYYY's, whatever helps",
-      "snack + warm drink + a comfort show sounds like a vibe, only if you want tho. and if it gets really bad, please check in with someone you trust okayyy 💗",
+      "Cosy mode, girlfriend edition 🌸 If it feels good: blanket, warm bottle, comfy clothes. You deserve to be looked after, especially by yourself.",
+      "No productivity points today, okay? Rest counts. Your boyfriend is proud of you for taking care of you.",
+      "Want a distraction? I'm one text away with memes, gossip, or an aggressively dramatic BABYYYY voice note.",
+      "A snack, warm drink, and comfort show could be a soft landing. And if you need extra support, please reach out to someone you trust too 💗",
     ],
   },
   {
@@ -325,10 +325,10 @@ export const pods: Pod[] = [
     mascot: { animal: "bunny", mood: "thinking", prop: "cloud" },
     teaser: "for the 2am brain spirals",
     messages: [
-      "BABYYY pause. your brain is doing the spinny thing again 🌀 most of those thoughts are just loud, not true. you're okay",
-      "let's do this: name 3 things you can see rn. ok now tell me one. see? you're here, you're safe, and i still like you a normal amount (a LOT)",
-      "if you're overthinking about us: don't. i'm not going anywhere. i'm annoyingly here. permanently. hehe",
-      "write the worry down, close the note, and come back to it tomorrow. 2am brain is not allowed to make decisions, that's the rule",
+      "Hey love, pause with me 🌀 A thought can be loud without being a fact. Let's give your brain a moment to unclench.",
+      "Tiny reset together: name three things you can see, then one thing you can hear. I'm doing it too, from my side of the screen.",
+      "If this is about us, let's talk it through when you're ready. You don't have to guess what I'm thinking; I'm on your team.",
+      "Write the worry down and let tomorrow-you revisit it. The 2am brain is a very dramatic screenwriter, not the director.",
     ],
   },
   {
@@ -339,10 +339,10 @@ export const pods: Pod[] = [
     mascot: { animal: "teddy", mood: "love", prop: "letter" },
     teaser: "open when the distance feels long",
     messages: [
-      "I MISS YOU TOOOOO 😭 like so much it's actually rude. the distance is temporary babyyy, us is not",
-      "close your eyes and imagine me saying BABBBBBYYYYYYYY really loudly. ok i'm basically there now",
-      "go reread our chats, the late-night ones. that's me, still here, still annoying, still yours hehe",
-      "every day we miss each other is one day closer to the next time we see each other yk. that's maths. i'm good at maths now",
+      "I miss you too, baby 😭 The distance is hard, but you don't have to pretend it isn't. I'm here with you in it.",
+      "Imagine one very loud BABYYYY and one proper hug saved up for when I see you. That is my official delivery promise.",
+      "If it helps, revisit one of our favorite chats. Every silly message is a little reminder that we're still making this work together.",
+      "We can miss each other and still have a good day. One day closer to the next hello, my love 💌",
     ],
   },
   {
@@ -353,10 +353,10 @@ export const pods: Pod[] = [
     mascot: { animal: "bunny", mood: "sleepy", prop: "pillow" },
     teaser: "for my sleepy-eyed baby",
     messages: [
-      "SLEEPY EYES. omg the same ones from assembly 🥹 go sleep babyyy, i'll still be here in the morning",
-      "ok last message (it's never the last message) — goodnight, sleep well, dream about something nice. like me. hehe",
-      "phone down, blanket up, and no overthinking allowed. husband's orders 🫡",
-      "sleep tight babyyy. tomorrow we gossip again ☕🌙",
+      "Those sleepy eyes from assembly deserve a soft pillow and a full night's rest 🥹 Go get cosy, my love.",
+      "One last goodnight (this time I mean it): sleep well, dream sweetly, and wake up knowing your boyfriend adores you.",
+      "Phone down, blanket up. No solving tomorrow tonight; your very unofficial husband says so 🫡",
+      "Sleep tight, baby. I'll be here for tomorrow's gossip and your first sleepy hello ☕🌙",
     ],
   },
   {
@@ -367,10 +367,10 @@ export const pods: Pod[] = [
     mascot: { animal: "teddy", mood: "angry", prop: "flower" },
     teaser: "space respected. snacks offered.",
     messages: [
-      "okay you're angry, that's valid. take your space, i'll be right here when you're ready. no rush at all 🌿",
-      "angry baby detected 😤 i'm putting a flower here 🌼 and slowly backing away. hehe. talk whenever you want",
-      "if i'm the reason, i'm sorry and i want to understand. if i'm not, i'm on your side, always. either way you're allowed to feel this",
-      "breathe in… breathe out… ok you can still be mad, i just wanted you to have oxygen hehe. love you even when you're grumpy",
+      "You're allowed to be angry, love. Take the space you need; I won't rush you into being okay 🌿",
+      "Angry girlfriend detected 😤 Flower delivery initiated 🌼 I can listen when you're ready; no pressure to answer now.",
+      "If I hurt you, I'm sorry. I want to understand and make it right, not win an argument. If it's something else, I'm still on your side.",
+      "One breath at a time. You don't have to stop being mad for me to love you; grumpy Khadija is still my Khadija.",
     ],
   },
 ];
@@ -414,14 +414,12 @@ export type BundledTrack = {
 };
 
 export const music = {
-  title: "OUR LITTLE PLAYLIST",
-  subtitle: "press play when you're ready. nothing plays by itself, promise.",
-  /** Audio uploaded for this anniversary site. Extract anniversary-music-assets.zip at the project root. */
+  title: "OUR LITTLE SOUNDTRACK",
+  subtitle: "three songs you sent me, ready to keep us company ♡",
   bundled: [
-    { title: "If You'll Let Me (Take 3)", src: "/assets/music/If_You'll_Let_Me_%23Take3.mp3" },
-    { title: "If You Let Go", src: "/assets/music/If_you_ll_let_go.mp3" },
-    { title: "Myfav", src: "/assets/music/Myfav.mp3" },
-    { title: "Surprise Element", src: "/assets/music/surprise_element..hehe.mp3" },
+    { title: "My Love Mine All Mine", artist: "Mitski", src: myLoveSrc.url },
+    { title: "Kesariya", artist: "Arijit Singh", src: kesariyaSrc.url },
+    { title: "Jo Tum Mere Ho", artist: "Anuv Jain", src: joTumSrc.url },
   ] as BundledTrack[],
 };
 

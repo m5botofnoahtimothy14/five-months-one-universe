@@ -2,7 +2,8 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Heart, Menu, Music2, Pause, Play, SkipBack, SkipForward, Volume2, VolumeX, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { sections, extraPages } from "@/content/anniversary";
-import { useMusic, ACCEPTED_AUDIO } from "@/components/music/MusicProvider";
+import { useMusic } from "@/components/music/MusicProvider";
+import { HeartField } from "@/components/fx/HeartField";
 
 export function formatTime(t: number) {
   if (!Number.isFinite(t) || t < 0) return "0:00";
@@ -22,12 +23,14 @@ function SoundtrackDock() {
       <span className="soundtrack-copy">
         <strong>{music.current?.title ?? (music.tracks.length ? "press play, babyyy" : "our soundtrack")}</strong>
         <small>
-          {music.error ??
+          {music.error ?? (music.needsTap
+            ? "tap play to start ♡"
+            :
             (music.current
               ? `${formatTime(music.time)} / ${formatTime(music.duration)}`
               : music.tracks.length
                 ? `${music.tracks.length} song${music.tracks.length === 1 ? "" : "s"} ready`
-                : "no songs yet. add some ♡")}
+                : "no songs yet. add some ♡"))}
         </small>
         <span className="soundtrack-progress" aria-hidden><i style={{ width: `${pct}%` }} /></span>
       </span>
@@ -42,21 +45,8 @@ function SoundtrackDock() {
             {music.muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
           </button>
         </>
-      ) : (
-        <label className="soundtrack-add">
-          ADD SONGS
-          <input
-            type="file"
-            accept={ACCEPTED_AUDIO}
-            multiple
-            onChange={(e) => {
-              if (e.target.files?.length) void music.addFiles(e.target.files);
-              e.currentTarget.value = "";
-            }}
-          />
-        </label>
-      )}
-      <Link to="/music" className="soundtrack-open" aria-label="Open the full playlist">≡</Link>
+      ) : null}
+      <Link to="/music" className="soundtrack-open" aria-label="Open soundtrack controls">≡</Link>
     </aside>
   );
 }
@@ -103,6 +93,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="anniversary-app">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-paper focus:px-4 focus:py-3 focus:shadow-lg">Skip to main content</a>
+      <HeartField />
       <div className="ambient ambient-a" aria-hidden />
       <div className="ambient ambient-b" aria-hidden />
       <header className="anniversary-header">

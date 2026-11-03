@@ -34,6 +34,7 @@ type MusicApi = {
   toggle: () => void;
   next: () => void;
   prev: () => void;
+  seek: (time: number) => void;
   setVolume: (v: number) => void;
   toggleMute: () => void;
 };
@@ -51,7 +52,7 @@ const FADE_MS = 1400;
 export function MusicProvider({ children }: { children: ReactNode }) {
   const audioRefs = [useRef<HTMLAudioElement | null>(null), useRef<HTMLAudioElement | null>(null)];
   const activeRef = useRef(0);
-  const rafRef = useRef<number[]>([]);
+  const rafRef = useRef(new Map<HTMLAudioElement, number>());
 
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -83,21 +84,20 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   // smooth volume ramp (used for crossfades)
   const ramp = useCallback((el: HTMLAudioElement, from: number, to: number, ms: number, done?: () => void) => {
-    rafRef.current.forEach((r) => cancelAnimationFrame(r));
-    rafRef.current = [];
+    const previous = rafRef.current.get(el);
+    if (previous !== undefined) cancelAnimationFrame(previous);
     const start = performance.now();
     const step = (now: number) => {
       const p = Math.min(1, (now - start) / ms);
       el.volume = Math.max(0, Math.min(1, from + (to - from) * p));
       if (p < 1) {
-        const r = requestAnimationFrame(step);
-        rafRef.current.push(r);
-      } else if (done) {
-        done();
+        rafRef.current.set(el, requestAnimationFrame(step));
+      } else {
+        rafRef.current.delete(el);
+        done?.();
       }
     };
-    const r = requestAnimationFrame(step);
-    rafRef.current.push(r);
+    rafRef.current.set(el, requestAnimationFrame(step));
   }, []);
 
   const targetVolume = useCallback(() => (muted ? 0 : volume), [muted, volume]);
@@ -144,8 +144,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     [tracks, currentId, muted, ramp, targetVolume],
   );
 
-  // start playing as soon as the site opens; if the browser blocks autoplay,
-  // wait for the visitor's first tap anywhere and start then.
+  // Try autoplay; browsers that block it can start on the visitor's first gesture.
   useEffect(() => {
     const stored = Number(localStorage.getItem("fm-volume"));
     if (!Number.isNaN(stored) && stored > 0 && stored <= 1) setVolumeState(stored);
@@ -154,6 +153,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     const first = tracks[0];
     if (!a || !first) return;
     a.src = first.src;
+    a.load();
     a.volume = stored > 0 && stored <= 1 ? stored : 0.55;
     a.play()
       .then(() => {
@@ -166,19 +166,20 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       });
 
     const start = () => {
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("keydown", start);
       const el = active();
-      if (el) {
-        el.play().then(() => setNeedsTap(false)).catch(() => undefined);
+      if (el?.paused) {
+        wantsPlay.current = true;
+        el.play().then(() => setNeedsTap(false)).catch(() => setNeedsTap(true));
       }
     };
-    if (needsTap) {
-      window.addEventListener("pointerdown", start, { once: true });
-      window.addEventListener("keydown", start, { once: true });
-      return () => {
-        window.removeEventListener("pointerdown", start);
-        window.removeEventListener("keydown", start);
-      };
-    }
+    window.addEventListener("pointerdown", start);
+    window.addEventListener("keydown", start);
+    return () => {
+      window.removeEventListener("pointerdown", start);
+      window.removeEventListener("keydown", start);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -226,6 +227,11 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     playIndex((currentIndex - 1 + tracks.length) % tracks.length);
   }, [tracks.length, currentIndex, playIndex]);
 
+  const seek = useCallback((nextTime: number) => {
+    const a = active();
+    if (a && Number.isFinite(nextTime)) a.currentTime = Math.max(0, Math.min(nextTime, a.duration || nextTime));
+  }, []);
+
   const setVolume = useCallback((v: number) => {
     setVolumeState(v);
     if (v > 0) setMuted(false);
@@ -248,6 +254,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     toggle,
     next,
     prev,
+    seek,
     setVolume,
     toggleMute: () => setMuted((m) => !m),
   };
