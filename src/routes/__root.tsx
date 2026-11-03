@@ -80,8 +80,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#fbeff0" },
       // Unlisted link: ask search engines not to index. This is NOT access control.
       { name: "robots", content: "noindex, nofollow" },
-      { title: "Five Months, One Universe" },
-      { name: "description", content: "A tiny internet scrapbook for a five-month anniversary." },
+      { title: "Six Months, One Universe" },
+      { name: "description", content: "A tiny internet scrapbook for a six-month anniversary." },
       { property: "og:title", content: "Five Months, One Universe" },
       { property: "og:description", content: "A tiny internet scrapbook for a five-month anniversary." },
       { property: "og:type", content: "website" },
