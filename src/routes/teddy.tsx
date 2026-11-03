@@ -7,10 +7,10 @@ import { useFx } from "@/components/fx/FxProvider";
 export const Route = createFileRoute("/teddy")({
   head: () => ({
     meta: [
-      { title: "Your Bigggg Teddy · Five Months, One Universe" },
-      { name: "description", content: "A Noah-sized teddy for hugs and kisses across the distance." },
+      { title: "Your Noah-Sized Teddy · Six Months, One Universe" },
+      { name: "description", content: "A very huggable Noah-sized teddy, reporting for boyfriend cuddle duty." },
       { property: "og:title", content: "Your Bigggg Teddy" },
-      { property: "og:description", content: "You said you needed hugs? Your teddy has reported for duty." },
+      { property: "og:description", content: "Need a hug, babyyy? Your Noah-teddy is right here." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -62,25 +62,25 @@ function TeddyPage() {
   const teddyRef = useRef<HTMLDivElement>(null);
   const [hugs, setHugs] = useState(0);
   const [kisses, setKisses] = useState(0);
-  const [message, setMessage] = useState("your biggg teddy is right here, babyyyy.");
+  const [message, setMessage] = useState("your biggg teddy is right here, babyyyy. come squish me 🧸");
   const [bounceKey, setBounceKey] = useState(0);
 
   const hug = () => {
     setHugs((n) => n + 1);
-    setMessage("COME HEREEEE. THE BIGGEST TEDDY HUG IS YOURS. ♡");
+    setMessage("COME HEREEEE, KHADIJAAAA. biggest Noah-teddy hug, just for you 🫂♡");
     setBounceKey((k) => k + 1);
     burst({ from: teddyRef.current, items: ["🫂", "💗", "🧸"], count: 10 });
   };
   const kiss = () => {
     setKisses((n) => n + 1);
-    setMessage("MWAAAAHHHH!! one kiss delivered. unlimited more available. 💋");
+    setMessage("MWAAAAHHHH!! one boyfriend kiss delivered. unlimited more available 💋");
     setBounceKey((k) => k + 1);
     burst({ from: teddyRef.current, items: ["💋", "😘", "💗"], count: 12 });
   };
 
   return (
     <>
-      <PageHeading tag="YOUR VERY OWN NOAH-SIZED TEDDY" title="THE BIGGG TEDDY" subtitle="You said you needed hugs? Your teddy has reported for duty." />
+      <PageHeading tag="YOUR VERY OWN NOAH-SIZED TEDDY" title="THE BIGGG TEDDYYYY" subtitle="need a hug from your boyfriend? your teddy has reported for cuddle duty, babyyy." />
       <section className="teddy-layout">
         <div className="teddy-stage">
           <div className="teddy-glow" aria-hidden />
@@ -97,11 +97,11 @@ function TeddyPage() {
           <span className="eyebrow"><Sparkles size={14} /> OFFICIAL TEDDY TRANSMISSION</span>
           <h2>HEYYYY KHADIJAAAAA!!</h2>
           <h3>YOUR BIGGG TEDDYYYY IS HEREEEE!!</h3>
-          <p>I LOVE YOU SOOO MUCHHH, BABYYYY. This teddy is me. Every hug, every kiss, every little heart is from your Noah.</p>
+          <p>I LOVE YOU SOOO MUCHHH, BABYYYY. this teddy is me until i can hug you for real. every heart is from your Noah 💗</p>
           <div className="teddy-message" aria-live="polite">{message}</div>
           <div className="teddy-actions">
-            <button className="primary-cta" onClick={hug}><Heart size={17} fill="currentColor" aria-hidden /> GIVE TEDDY A HUG</button>
-            <button className="secondary-cta" onClick={kiss}>SEND ME KISSES 💋</button>
+            <button className="primary-cta" onClick={hug}><Heart size={17} fill="currentColor" aria-hidden /> HUG YOUR NOAH-TEDDY</button>
+            <button className="secondary-cta" onClick={kiss}>SEND YOUR BOYFRIEND A KISS 💋</button>
           </div>
           <div className="teddy-counts">
             <span>hugs delivered <b>{hugs}</b></span>
@@ -109,7 +109,7 @@ function TeddyPage() {
           </div>
         </div>
       </section>
-      <p className="teddy-signoff">distance cannot stop this teddy from sending you love. ♡</p>
+      <p className="teddy-signoff">the distance is rude, but it can't stop your Noah from loving you ♡</p>
       <PageLinks />
     </>
   );

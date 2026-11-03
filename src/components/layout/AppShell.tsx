@@ -87,9 +87,22 @@ function SiteMenu({ pathname }: { pathname: string }) {
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [isOnline, setIsOnline] = useState(true);
   const clean = pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
   const step = sections.findIndex((s) => s.path === clean);
   const current = step >= 0 ? sections[step] : undefined;
+
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+    const updateOnline = () => setIsOnline(navigator.onLine);
+    window.addEventListener("online", updateOnline);
+    window.addEventListener("offline", updateOnline);
+    return () => {
+      window.removeEventListener("online", updateOnline);
+      window.removeEventListener("offline", updateOnline);
+    };
+  }, []);
+
   return (
     <div className="anniversary-app">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-paper focus:px-4 focus:py-3 focus:shadow-lg">Skip to main content</a>
@@ -109,6 +122,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <SiteMenu pathname={clean} />
         </div>
       </header>
+      {!isOnline && <div className="offline-banner" role="status">you're offline, babyyy. our little universe is still right here ♡</div>}
       {current && (
         <div className="journey-progress">
           <div className="journey-meta">
@@ -134,7 +148,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <footer className="anniversary-footer">
-        made with love, by your annoying Noah <span>♡</span>
+        made with way too much love (and a few dramatic BABYYYYs), by your Noah <span>♡</span>
       </footer>
       <SoundtrackDock />
     </div>

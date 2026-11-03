@@ -22,4 +22,11 @@ describe("anniversary quiz scoring", () => {
     expect(resultFor(6, 8, quiz.results).min).toBe(75);
     expect(resultFor(1, 8, quiz.results).min).toBe(0);
   });
+
+  it("keeps every correct answer index within its options", () => {
+    for (const question of quiz.questions) {
+      expect(question.correct).toBeGreaterThanOrEqual(0);
+      expect(question.correct).toBeLessThan(question.options.length);
+    }
+  });
 });

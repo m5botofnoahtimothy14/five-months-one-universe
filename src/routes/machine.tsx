@@ -9,10 +9,10 @@ import { pickIndex, prefersReducedMotion } from "@/lib/random";
 export const Route = createFileRoute("/machine")({
   head: () => ({
     meta: [
-      { title: "Noah Affection Machine · Five Months, One Universe" },
-      { name: "description", content: "Press any button for kisses, compliments, secrets and a very dramatic NOAH.exe." },
-      { property: "og:title", content: "Noah Affection Machine" },
-      { property: "og:description", content: "Press any button. Everything works. That's the whole point." },
+      { title: "Noah's Love Machine · Six Months, One Universe" },
+      { name: "description", content: "Kisses, compliments, boyfriend updates and a very dramatic NOAH.exe, all for Khadija." },
+      { property: "og:title", content: "Noah's Love Machine" },
+      { property: "og:description", content: "Press a button, babyyy. Your boyfriend has love to deliver." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -26,17 +26,17 @@ type Key =
 
 const BUTTONS: { key: Key; label: string; featured?: boolean }[] = [
   { key: "compliment", label: affection.generatorButton + " ✨", featured: true },
-  { key: "kiss", label: "PRESS FOR KISS 💋", featured: true },
-  { key: "baby", label: "PRESS FOR BABY 🍼" },
-  { key: "miss", label: "I MISS YOU 🥺" },
-  { key: "annoy", label: "ANNOY NOAH 😤" },
-  { key: "love", label: "MORE LOVE PLEASE 💗" },
-  { key: "doYouLove", label: "DO YOU LOVE NOAH? 💭" },
-  { key: "husband", label: "HUSBAND CHECK 🫡" },
-  { key: "exe", label: "NOAH.exe 💻" },
-  { key: "bear", label: "SQUEEZE THE BEAR 🧸" },
-  { key: "spam", label: "BABY SPAM 📢" },
-  { key: "secret", label: "UNLOCK SECRET 🔒" },
+  { key: "kiss", label: "GIVE ME A KISS 💋", featured: true },
+  { key: "baby", label: "NICKNAME ME, BABE" },
+  { key: "miss", label: "I MISS YOU TOO 😭" },
+  { key: "annoy", label: "ANNOY YOUR BF 😤" },
+  { key: "love", label: "TOP UP THE LOVE 💗" },
+  { key: "doYouLove", label: "DO YOU LOVE ME? 👀" },
+  { key: "husband", label: "BOYFRIEND STATUS 🫡" },
+  { key: "exe", label: "CHECK NOAH.exe 💻" },
+  { key: "bear", label: "SQUISH YOUR TEDDY 🧸" },
+  { key: "spam", label: "BABY SPAM PLS 📢" },
+  { key: "secret", label: "PSSST, SECRET 🔒" },
 ];
 
 const LISTS: Partial<Record<Key, readonly string[]>> = {
@@ -61,7 +61,7 @@ const BURST: Partial<Record<Key, string[]>> = {
 
 function MachinePage() {
   const { burst } = useFx();
-  const [message, setMessage] = useState("choose a button, babyyyy. your husband is fully operational.");
+  const [message, setMessage] = useState("pick a button, babyyy. your boyfriend is fully operational (and very in love).");
   const [count, setCount] = useState(0);
   const [kisses, setKisses] = useState(0);
   const [loveMeter, setLoveMeter] = useState(40);

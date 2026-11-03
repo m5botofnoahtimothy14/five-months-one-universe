@@ -7,7 +7,7 @@ import { useMusic } from "@/components/music/MusicProvider";
 export const Route = createFileRoute("/music")({
   head: () => ({
     meta: [
-      { title: "Our Little Soundtrack · Five Months, One Universe" },
+      { title: "Our Little Soundtrack · Six Months, One Universe" },
       { name: "description", content: "The songs Khadija sent Noah, playing softly through their anniversary scrapbook." },
       { property: "og:title", content: "Our Little Soundtrack" },
       { property: "og:description", content: "Three songs, picked with love." },

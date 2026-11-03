@@ -398,4 +398,5 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .track-name small { display:block; margin-top:3px; color:#a48b95; font-size:10px; font-weight:500; }
 .track-action { display:grid; place-items:center; color:#b16f89; }
 .pod-controls { flex-wrap:wrap; justify-content:center; gap:10px; }
+.offline-banner { position:relative; z-index:4; width:fit-content; max-width:calc(100% - 32px); margin:4px auto 0; padding:8px 14px; border:1px solid #e8cbd5; border-radius:999px; background:#fff8fa; color:#98627a; font-size:11px; font-weight:800; text-align:center; }
 @media(max-width:480px) { .music-stage { gap:14px; } .music-disc { width:78px; border-width:6px; } .music-controls { gap:8px; } .music-controls input { width:62px; } }

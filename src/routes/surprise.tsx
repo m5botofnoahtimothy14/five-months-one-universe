@@ -53,7 +53,7 @@ function SurprisePage() {
 
   return (
     <>
-      <PageHeading tag="THE LAST LITTLE CORNER" title={surprise.title} subtitle="There is one more thing. It is wrapped up just for you." />
+      <PageHeading tag="THE LAST LITTLE CORNER" title={surprise.title} subtitle="okay, one teeny tiny more thing. i made it just for you, my love ♡" />
       <section className="content-card surprise-card" aria-live="polite">
         {stage === "gift" && (
           <>
@@ -73,7 +73,7 @@ function SurprisePage() {
               <span className="envelope-heart" aria-hidden>💌</span>
               <small>{surprise.envelopeHint}</small>
             </button>
-            <p className="gift-hint">the box is open!! there's an envelope inside…</p>
+            <p className="gift-hint">the box is open!! babe there's a lil envelope inside…</p>
           </>
         )}
         {stage === "letter" && (
@@ -90,9 +90,9 @@ function SurprisePage() {
             <strong>{surprise.finalSign}</strong>
             <div className="surprise-actions">
               <button className="primary-cta" onClick={(e) => burst({ from: e.currentTarget, items: ["💋", "💗", "💖"], count: 16 })}>
-                SEND NOAH A KISS BACK 💋
+                SEND YOUR BOYFRIEND A KISS BACK 💋
               </button>
-              <button className="secondary-cta" onClick={() => confetti()}>MORE CONFETTI 🎉</button>
+              <button className="secondary-cta" onClick={() => confetti()}>MAKE IT RAIN HEARTS 💗</button>
               <button className="secondary-cta" onClick={replay}>{surprise.replay} ↺</button>
             </div>
           </div>

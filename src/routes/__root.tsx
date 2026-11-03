@@ -81,9 +81,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // Unlisted link: ask search engines not to index. This is NOT access control.
       { name: "robots", content: "noindex, nofollow" },
       { title: "Six Months, One Universe" },
-      { name: "description", content: "A tiny internet scrapbook for a six-month anniversary." },
+      { name: "description", content: "A tiny, very in-love internet scrapbook from Noah to Khadija for their six-month anniversary." },
       { property: "og:title", content: "Six Months, One Universe" },
-      { property: "og:description", content: "A tiny internet scrapbook for a six-month anniversary." },
+      { property: "og:description", content: "A tiny, very in-love internet scrapbook from Noah to Khadija." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -114,6 +114,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    if (!import.meta.env.PROD || !("serviceWorker" in navigator)) return;
+    void navigator.serviceWorker.register("/sw.js").catch((error: unknown) => {
+      console.error("Could not register offline support", error);
+    });
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

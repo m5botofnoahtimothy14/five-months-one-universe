@@ -8,10 +8,10 @@ import { resultFor, scorePercent } from "@/lib/quiz";
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "The Husband Quiz · Five Months, One Universe" },
-      { name: "description", content: "How well does Khadija know her annoying husband? Eight dramatic questions." },
-      { property: "og:title", content: "The Husband Quiz" },
-      { property: "og:description", content: "How well does Khadija know her annoying husband?" },
+      { title: "Six Months of Us · Six Months, One Universe" },
+      { name: "description", content: "Eight cute, chaotic questions about Noah and Khadija's six months together." },
+      { property: "og:title", content: "Six Months of Us" },
+      { property: "og:description", content: "A tiny anniversary quiz for Khadija, from her very smitten boyfriend." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
