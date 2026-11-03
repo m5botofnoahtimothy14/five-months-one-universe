@@ -1,6 +1,6 @@
 /**
  * ============================================================
- *  FIVE MONTHS, ONE UNIVERSE — EDIT EVERYTHING HERE ♡
+ *  SIX MONTHS, ONE UNIVERSE — EDIT EVERYTHING HERE ♡
  * ============================================================
  *  Noah: every word on the site lives in this file.
  *  Change text inside the quotes, save, done. Keep the commas!
@@ -30,11 +30,11 @@ export const people = {
   herNicknameForHim: "husband",
   hisNicknameForHer: "baby",
   dramaticBaby: "BABBBBBYYYYYYYY",
-  monthsTogether: 5,
+  monthsTogether: 6,
 };
 
 export const site = {
-  title: "Five Months, One Universe",
+  title: "Six Months, One Universe",
   tagline: "a tiny internet scrapbook for my favourite person",
 };
 
@@ -42,8 +42,8 @@ export const site = {
 
 export const welcome = {
   kicker: "a lil scrapbook from noah ♡",
-  title: "FIVE MONTHSSSS!!",
-  subtitle: "five months of you, me, the distance, and way too many late-night chats",
+  title: "SIX MONTHSSSS!!",
+  subtitle: "six months of you, me, the distance, and way too many late-night chats",
   button: "ARE YOU READY, BABYYYY?",
   hint: "psst… some stars on this site are clickable 👀",
 };
@@ -54,7 +54,7 @@ export const sections = [
   { path: "/", label: "Welcome", emoji: "🏠" },
   { path: "/quiz", label: "The quiz", emoji: "📝" },
   { path: "/machine", label: "Affection machine", emoji: "💗" },
-  { path: "/timeline", label: "Our five months", emoji: "📸" },
+  { path: "/timeline", label: "Our six months", emoji: "📸" },
   { path: "/teddy", label: "Your teddy", emoji: "🧸" },
   { path: "/letter", label: "The letter", emoji: "💌" },
   { path: "/surprise", label: "The surprise", emoji: "🎁" },
@@ -234,7 +234,7 @@ export const affection = {
   ],
   noahExe: [
     ["> booting noah.exe…", "> loading feelings… [██████████] 100%", "> ERROR: too much love detected", "> solution: hug Khadija ✓"],
-    ["> starting noah.exe v5.0 (five months edition)", "> checking memory: sleepy eyes at assembly ✓", "> checking memory: late-night chats ✓", "> status: still obsessed"],
+    ["> starting noah.exe v5.0 (six months edition)", "> checking memory: sleepy eyes at assembly ✓", "> checking memory: late-night chats ✓", "> status: still obsessed"],
     ["> noah.exe running", "> tease_khadija() executed successfully", "> sing_together() queued", "> output: BABBBBBYYYYYYYY"],
     ["> noah.exe update available!", "> new features: more love, more annoying", "> installing… done", "> please restart your smile 😁"],
   ],
@@ -445,25 +445,18 @@ export type LetterBlock =
 
 export const letter = {
   title: "a letter (but make it texting)",
-  greeting: "HEYYYYYYYY BABYYYYYYYY!! FIVE MONTHSSSS?????",
+  greeting: "HEYYYYYYYY BABYYYYYYYY!! SIX MONTHSSSS?????",
   blocks: [
     { type: "p", text: "like BRO. five whole months?? how did that even happen. it feels like yesterday and also like i've known you forever yk. idk how to write proper letters so i'm just gonna text you this but longer hehe" },
-    { type: "sticker", kind: "mwah", caption: "MWAAAAHHHH 💋💋" },
     { type: "p", text: "okay so. remember assembly? that first time i saw you?? you had the SLEEPIEST eyes ever 😭 and i was just standing there like… who is she. i still think about that moment sooo much. like randomly. in the middle of the day. it just pops up and i smile like an idiot" },
-    { type: "gif", slotId: "letter-gif-1", caption: "me remembering assembly", fallback: "sleepy" },
     { type: "p", text: "and then the late-night conversations started and honestly they're my favourite part of every day. the “ok last message” that turns into another hour. the random deep talks. the stupid jokes at 2am. i love all of it" },
-    { type: "sticker", kind: "singing", caption: "our concerts tho 🎤" },
     { type: "p", text: "also our singing?? elite. off-key sometimes, but elite. and the TEA. sharing gossip with you is genuinely one of my top hobbies now. you're my gossip partner for life, no takebacks ☕" },
-    { type: "gif", slotId: "letter-gif-2", caption: "us spilling tea", fallback: "tea" },
     { type: "p", text: "and yes i know i tease you a lot. like A LOT. but it's only because you're cute when you're annoyed hehe. and when you call me “husband”… bro. i melt. every time. don't tell anyone" },
-    { type: "sticker", kind: "mwah", caption: "MWAAAAHHHH 💋💋" },
     { type: "p", text: "and you know my favourite word is “baby”. i say it like 400 times a day. and i know you secretly (not secretly) love when i go full dramatic BABBBBBYYYYYYYY. so here it is, officially, in a letter: BABBBBBYYYYYYYY!!" },
-    { type: "sticker", kind: "hearts" },
     { type: "p", text: "the distance is hard sometimes, i won't lie. i miss you so much it's kinda annoying. but even from far away you make my days better, and i'm really grateful for you. i just want to keep making more memories with you, the silly ones, the late-night ones, all of them" },
-    { type: "sticker", kind: "teddyHug", caption: "*virtual hug loading*" },
     { type: "p", text: "thank you for being you. for the patience, the laughs, the sleepy goodnights. you're so so special to me yk. here's to month six and way, way more" },
-  ] satisfies LetterBlock[],
-  closing: "HAPPY FIVE MONTHSSSS, MY KHADIJAAAA BABYYYYYYYY!!",
+  ], satisfies LetterBlock[],
+  closing: "HAPPY SIX MONTHSSSS, MY KHADIJAAAA BABYYYYYYYY!!",
   signature: "YOUR ANNOYING HUSBAND, NOAHHHH ♡",
 };
 
@@ -497,10 +490,10 @@ export const surprise = {
   boxHint: "tap the gift to shake it",
   tapsToOpen: 3,
   envelopeHint: "a letter fell out!! tap to open",
-  finalTitle: "Five months, one universe 🌍💗",
+  finalTitle: "Six months, one universe 🌍💗",
   finalMessage: [
     "out of everyone in this whole entire universe, i'm so lucky it's you.",
-    "five months down. so many more memories to go. late nights, duets, tea, teasing, all of it.",
+    "six months down. so many more memories to go. late nights, duets, tea, teasing, all of it.",
     "thank you for being my baby. i'm always cheering for you, even from far away.",
   ],
   finalSign: "— your annoying husband, noahhhh ♡",
