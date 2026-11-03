@@ -58,8 +58,7 @@ export function FxProvider({ children }: { children: ReactNode }) {
     const fresh: Particle[] = Array.from({ length: count }, () => {
       const angle = Math.random() * Math.PI * 2;
       const dist = spread * (0.45 + Math.random() * 0.75);
-      const content = items[Math.floor(Math.random() * items.length)];
-      return {
+        content: items[Math.floor(Math.random() * items.length)] ?? "💗",
         id: nextId.current++,
         x,
         y,
