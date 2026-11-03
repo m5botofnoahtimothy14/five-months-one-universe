@@ -78,7 +78,6 @@ export interface FileRoutesByTo {
   '/quiz': typeof QuizRoute
   '/surprise': typeof SurpriseRoute
   '/teddy': typeof TeddyRoute
-  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -90,7 +89,6 @@ export interface FileRoutesById {
   '/quiz': typeof QuizRoute
   '/surprise': typeof SurpriseRoute
   '/teddy': typeof TeddyRoute
-  '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -113,7 +111,6 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/surprise'
     | '/teddy'
-    | '/timeline'
   id:
     | '__root__'
     | '/'
@@ -124,7 +121,6 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/surprise'
     | '/teddy'
-    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
