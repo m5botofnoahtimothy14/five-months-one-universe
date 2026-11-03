@@ -393,7 +393,7 @@ export const letter = {
     { type: "p", text: "and you know my favourite word is “baby”. i say it like 400 times a day. and i know you secretly (not secretly) love when i go full dramatic BABBBBBYYYYYYYY. so here it is, officially, in a letter: BABBBBBYYYYYYYY!!" },
     { type: "p", text: "the distance is hard sometimes, i won't lie. i miss you so much it's kinda annoying. but even from far away you make my days better, and i'm really grateful for you. i just want to keep making more memories with you, the silly ones, the late-night ones, all of them" },
     { type: "p", text: "thank you for being you. for the patience, the laughs, the sleepy goodnights. you're so so special to me yk. here's to month six and way, way more" },
-  ], satisfies LetterBlock[],
+  ] satisfies LetterBlock[],
   closing: "HAPPY SIX MONTHSSSS, MY KHADIJAAAA BABYYYYYYYY!!",
   signature: "YOUR ANNOYING HUSBAND, NOAHHHH ♡",
 };
