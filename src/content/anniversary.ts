@@ -8,6 +8,10 @@
  * ============================================================
  */
 
+import myLoveSrc from "@/assets/my-love-mine-all-mine.mp3.asset.json";
+import kesariyaSrc from "@/assets/kesariya.mp3.asset.json";
+import joTumSrc from "@/assets/jo-tum-mere-ho.mp3.asset.json";
+
 export type MascotAnimal = "teddy" | "bunny";
 export type MascotMood = "happy" | "sad" | "crying" | "sleepy" | "angry" | "thinking" | "love";
 export type MascotProp =
@@ -96,53 +100,53 @@ export const quiz = {
   intro: "no pressure. ok a little pressure. jk jk there's literally no wrong way to love me hehe",
   questions: [
     {
-      question: "How does Noah say your name when he's being DRAMATIC?",
-      options: ["“Khadija.”", "“BABBBBBYYYYYYYY”", "“hello madam”", "he just sends a thumbs up 👍"],
+      question: "When Noah texts “ok goodnight” at 2am, what ACTUALLY happens?",
+      options: ["He goes to sleep like a responsible adult", "You both keep texting for 47 more minutes", "His phone catches fire", "He writes a formal apology letter"],
       correct: 1,
-      rightReply: "YESSSS the full dramatic version, with extra Y's. you know me too well 😭",
-      wrongReply: "noooo it's “BABBBBBYYYYYYYY”!! with at least 8 Y's. minimum.",
+      rightReply: "EXACTLY. “goodnight” is a suggestion, not a commitment 😭",
+      wrongReply: "babyyy you KNOW “goodnight” means 47 more minutes of texting. minimum.",
     },
     {
-      question: "What's Noah's favourite hobby (that you pretend to hate)?",
-      options: ["Gardening", "Teasing you", "Tax returns", "Silent meditation"],
+      question: "What happens to Noah when you call him “husband”?",
+      options: ["He pretends not to hear", "He melts. Every. Single. Time.", "He files a complaint", "He turns into a robot"],
       correct: 1,
-      rightReply: "correct!! teasing you is my full-time job and i'm employee of the month 😌",
-      wrongReply: "close but no, it's teasing you hehe. every. single. day.",
+      rightReply: "guilty 🥹 i melt like ice cream in may. don't expose me",
+      wrongReply: "nope, he MELTS. full puddle. very embarrassing (keep doing it)",
     },
     {
-      question: "When do our BEST conversations happen?",
-      options: ["9am sharp", "During lunch only", "Late at night when we should be sleeping", "Never, we're very serious people"],
+      question: "Someone says “I have tea ☕”. What is the correct protocol?",
+      options: ["Discuss it calmly over actual tea", "Drop EVERYTHING and gossip immediately", "Forward it to HR", "Save it for the monthly meeting"],
+      correct: 1,
+      rightReply: "protocol followed perfectly. gossip partners for LIFE 🫖",
+      wrongReply: "BRO. we drop everything!! actual tea is irrelevant. it's about the GOSSIP",
+    },
+    {
+      question: "Noah's love language, ranked by scientific evidence:",
+      options: ["Teasing you 24/7", "Off-key singing duets", "Full-volume BABBBBBYYYYYYYY", "All of the above. Simultaneously."],
+      correct: 3,
+      rightReply: "MULTITASKING KING 👑 i do all three at once and i'm not sorry",
+      wrongReply: "trick question babyyy — it's ALL of them. at the same time. constantly.",
+    },
+    {
+      question: "Who wins when we argue about who misses the other more?",
+      options: ["Noah, and he never lets it go", "The United Nations", "It ends in a tie, every single time", "Nobody. Everyone cries"],
       correct: 2,
-      rightReply: "YUPPP. 2am thoughts with you >>> everything else",
-      wrongReply: "babyyy it's the late-night ones!! the “ok last message” × 47 ones 🌙",
+      rightReply: "correct!! it's always a tie because we're disgustingly evenly matched 💗",
+      wrongReply: "it's ALWAYS a tie!! we've never once settled it and we never will hehe",
     },
     {
-      question: "What do we do together that makes Noah weirdly happy?",
-      options: ["Singing together", "Doing maths", "Filing paperwork", "Arguing about the weather"],
-      correct: 0,
-      rightReply: "SINGINGGG!! even when we're off-key. ESPECIALLY when we're off-key 🎤",
-      wrongReply: "it's singing together!! our concerts are elite, don't argue",
-    },
-    {
-      question: "Someone says “I have tea ☕”. What happens next?",
-      options: ["We ignore it", "We drop EVERYTHING and gossip", "We make actual tea", "We report it to the authorities"],
+      question: "Noah's “5 more minutes” in the morning means:",
+      options: ["5 minutes. literally 5.", "Somewhere between 30 minutes and never", "A secret husband unit of time", "He's already awake?? since when"],
       correct: 1,
-      rightReply: "obviously. tea time with you is sacred. spill it ALL 🫖",
-      wrongReply: "BRO we drop everything!! gossip partners forever 🫖",
+      rightReply: "you know me too well 😭 my “5 minutes” is a vibe, not a measurement",
+      wrongReply: "babyyy. my “5 minutes” has never once meant 5 minutes. not once in history",
     },
     {
-      question: "What does Khadija call Noah?",
-      options: ["Mr. Noah sir", "Husband", "That guy", "Customer service"],
-      correct: 1,
-      rightReply: "husband reporting for duty 🫡 (annoying edition)",
-      wrongReply: "it's “husband”!! and he melts every time, don't tell him",
-    },
-    {
-      question: "Noah's honest job description is:",
-      options: ["Professional chef", "Annoying husband", "Astronaut", "Quiet and mysterious"],
-      correct: 1,
-      rightReply: "ANNOYING HUSBAND, certified ✅ i take my job very seriously",
-      wrongReply: "the answer was annoying husband hehe. it's literally on my business card",
+      question: "Which of these has Noah DEFINITELY done mid-conversation with you?",
+      options: ["Said “one sec” and vanished for 40 minutes", "Walked into a door", "Typed “hahaha” then said “wait what”", "All of the above. He's a menace"],
+      correct: 3,
+      rightReply: "MENACE CONFIRMED ✅ i contain multitudes and zero shame",
+      wrongReply: "it's all of the above babyyy. your husband is a certified menace 😭",
     },
     {
       question: "The first time Noah saw you, you had…",

@@ -9,27 +9,13 @@ import {
   type ReactNode,
 } from "react";
 import { music } from "@/content/anniversary";
-import { idbAvailable, idbDelete, idbGetAll, idbPut, newId } from "@/lib/localdb";
-
-export const ACCEPTED_AUDIO = ".mp3,.m4a,.wav,.ogg,audio/mpeg,audio/mp4,audio/x-m4a,audio/wav,audio/ogg";
-
-type StoredTrack = {
-  id: string;
-  title: string;
-  artist?: string | undefined;
-  order: number;
-  audio: Blob;
-  cover?: Blob | undefined;
-  addedAt: number;
-};
 
 export type Track = {
   id: string;
   title: string;
   artist?: string | undefined;
   src: string;
-  cover?: string | undefined;
-  source: "bundled" | "local";
+  source: "bundled";
 };
 
 type MusicApi = {
@@ -41,21 +27,15 @@ type MusicApi = {
   duration: number;
   volume: number;
   muted: boolean;
+  /** true when the browser blocked autoplay and we're waiting for a first tap */
+  needsTap: boolean;
   error: string | null;
-  ready: boolean;
-  persistent: boolean;
   playAt: (index: number) => void;
   toggle: () => void;
   next: () => void;
   prev: () => void;
-  seek: (t: number) => void;
   setVolume: (v: number) => void;
   toggleMute: () => void;
-  addFiles: (files: FileList | File[]) => Promise<number>;
-  setCover: (id: string, file: File) => Promise<void>;
-  rename: (id: string, title: string) => Promise<void>;
-  remove: (id: string) => Promise<void>;
-  move: (id: string, dir: -1 | 1) => Promise<void>;
 };
 
 const MusicContext = createContext<MusicApi | null>(null);
@@ -66,243 +46,192 @@ export function useMusic(): MusicApi {
   return ctx;
 }
 
-const AUDIO_EXT = /\.(mp3|m4a|wav|ogg|oga)$/i;
-
-function titleFromFile(name: string) {
-  return name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim() || "untitled song";
-}
+const FADE_MS = 1400;
 
 export function MusicProvider({ children }: { children: ReactNode }) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [stored, setStored] = useState<StoredTrack[]>([]);
-  const urlCache = useRef(new Map<Blob, string>());
+  const audioRefs = [useRef<HTMLAudioElement | null>(null), useRef<HTMLAudioElement | null>(null)];
+  const activeRef = useRef(0);
+  const rafRef = useRef<number[]>([]);
+
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolumeState] = useState(0.8);
+  const [volume, setVolumeState] = useState(0.55);
   const [muted, setMuted] = useState(false);
+  const [needsTap, setNeedsTap] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [ready, setReady] = useState(false);
-  const [persistent, setPersistent] = useState(true);
-  const wantPlay = useRef(false);
+  const wantsPlay = useRef(false);
 
-  // load saved songs + volume (client only)
-  useEffect(() => {
-    const v = Number(localStorage.getItem("fm-volume"));
-    if (!Number.isNaN(v) && localStorage.getItem("fm-volume") !== null) setVolumeState(v);
-    if (!idbAvailable()) {
-      setPersistent(false);
-      setReady(true);
-      return;
-    }
-    idbGetAll<StoredTrack>("tracks")
-      .then((rows) => setStored(rows.sort((a, b) => a.order - b.order)))
-      .catch(() => setPersistent(false))
-      .finally(() => setReady(true));
-  }, []);
-
-  const urlFor = useCallback((blob: Blob) => {
-    let u = urlCache.current.get(blob);
-    if (!u) {
-      u = URL.createObjectURL(blob);
-      urlCache.current.set(blob, u);
-    }
-    return u;
-  }, []);
-
-  const tracks: Track[] = useMemo(() => {
-    const bundled: Track[] = music.bundled.map((t, i) => ({
-      id: `bundled-${i}`,
-      title: t.title,
-      artist: t.artist,
-      src: t.src,
-      cover: t.cover,
-      source: "bundled",
-    }));
-    const local: Track[] = stored.map((s) => ({
-      id: s.id,
-      title: s.title,
-      artist: s.artist,
-      src: urlFor(s.audio),
-      cover: s.cover ? urlFor(s.cover) : undefined,
-      source: "local",
-    }));
-    return [...bundled, ...local];
-  }, [stored, urlFor]);
+  const tracks: Track[] = useMemo(
+    () =>
+      music.bundled.map((t, i) => ({
+        id: `song-${i}`,
+        title: t.title,
+        artist: t.artist,
+        src: t.src,
+        source: "bundled" as const,
+      })),
+    [],
+  );
 
   const currentIndex = tracks.findIndex((t) => t.id === currentId);
   const current: Track | null = currentIndex >= 0 ? (tracks[currentIndex] ?? null) : null;
 
-  // keep audio element in sync with the chosen track
-  useEffect(() => {
-    const a = audioRef.current;
-    if (!a) return;
-    if (!current) {
-      a.pause();
-      a.removeAttribute("src");
-      return;
-    }
-    if (a.getAttribute("src") !== current.src) {
-      a.src = current.src;
-      a.load();
-    }
-    if (wantPlay.current) {
-      a.play().catch(() => setIsPlaying(false));
-    }
-  }, [current]);
+  const active = () => audioRefs[activeRef.current]?.current ?? null;
+  const inactive = () => audioRefs[1 - activeRef.current]?.current ?? null;
 
-  useEffect(() => {
-    const a = audioRef.current;
-    if (a) {
-      a.volume = volume;
-      a.muted = muted;
-    }
-  }, [volume, muted]);
+  // smooth volume ramp (used for crossfades)
+  const ramp = useCallback((el: HTMLAudioElement, from: number, to: number, ms: number, done?: () => void) => {
+    rafRef.current.forEach((r) => cancelAnimationFrame(r));
+    rafRef.current = [];
+    const start = performance.now();
+    const step = (now: number) => {
+      const p = Math.min(1, (now - start) / ms);
+      el.volume = Math.max(0, Math.min(1, from + (to - from) * p));
+      if (p < 1) {
+        const r = requestAnimationFrame(step);
+        rafRef.current.push(r);
+      } else if (done) {
+        done();
+      }
+    };
+    const r = requestAnimationFrame(step);
+    rafRef.current.push(r);
+  }, []);
 
-  const playAt = useCallback(
+  const targetVolume = useCallback(() => (muted ? 0 : volume), [muted, volume]);
+
+  const playIndex = useCallback(
     (index: number) => {
       const t = tracks[index];
       if (!t) return;
       setError(null);
-      wantPlay.current = true;
-      if (t.id === currentId) {
-        audioRef.current?.play().catch(() => setIsPlaying(false));
-      } else {
-        setCurrentId(t.id);
+      wantsPlay.current = true;
+
+      const a = active();
+      if (currentId === t.id && a) {
+        a.play().catch(() => setIsPlaying(false));
+        return;
       }
+
+      const nextEl = inactive();
+      const curEl = a;
+      if (!nextEl) return;
+
+      nextEl.src = t.src;
+      nextEl.load();
+      nextEl.volume = muted ? 0 : 0.0001;
+      const p = nextEl.play();
+      if (p) {
+        p.then(() => setNeedsTap(false)).catch(() => {
+          setNeedsTap(true);
+          setIsPlaying(false);
+        });
+      }
+      // fade the new song in, fade the old one out
+      ramp(nextEl, muted ? 0 : 0.0001, targetVolume(), FADE_MS);
+      if (curEl) {
+        ramp(curEl, curEl.volume, 0, FADE_MS, () => {
+          curEl.pause();
+        });
+      }
+      activeRef.current = 1 - activeRef.current;
+      setTime(0);
+      setDuration(0);
+      setCurrentId(t.id);
     },
-    [tracks, currentId],
+    [tracks, currentId, muted, ramp, targetVolume],
   );
 
-  const toggle = useCallback(() => {
-    const a = audioRef.current;
-    if (!a) return;
-    if (!current) {
-      if (tracks.length) playAt(0);
-      return;
+  // start playing as soon as the site opens; if the browser blocks autoplay,
+  // wait for the visitor's first tap anywhere and start then.
+  useEffect(() => {
+    const stored = Number(localStorage.getItem("fm-volume"));
+    if (!Number.isNaN(stored) && stored > 0 && stored <= 1) setVolumeState(stored);
+
+    const a = audioRefs[0].current;
+    const first = tracks[0];
+    if (!a || !first) return;
+    a.src = first.src;
+    a.volume = stored > 0 && stored <= 1 ? stored : 0.55;
+    a.play()
+      .then(() => {
+        wantsPlay.current = true;
+        setCurrentId(first.id);
+      })
+      .catch(() => {
+        setNeedsTap(true);
+        setCurrentId(first.id);
+      });
+
+    const start = () => {
+      const el = active();
+      if (el) {
+        el.play().then(() => setNeedsTap(false)).catch(() => undefined);
+      }
+    };
+    if (needsTap) {
+      window.addEventListener("pointerdown", start, { once: true });
+      window.addEventListener("keydown", start, { once: true });
+      return () => {
+        window.removeEventListener("pointerdown", start);
+        window.removeEventListener("keydown", start);
+      };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    for (const ref of audioRefs) {
+      const el = ref.current;
+      if (el) {
+        el.muted = muted;
+        if (el !== active()) el.volume = muted ? 0 : volume;
+      }
+    }
+    try {
+      localStorage.setItem("fm-volume", String(volume));
+    } catch {
+      /* ignore */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [volume, muted]);
+
+  const toggle = useCallback(() => {
+    const a = active();
+    if (!a) return;
     if (a.paused) {
-      wantPlay.current = true;
+      wantsPlay.current = true;
+      setNeedsTap(false);
       a.play().catch(() => setIsPlaying(false));
     } else {
-      wantPlay.current = false;
+      wantsPlay.current = false;
       a.pause();
     }
-  }, [current, tracks.length, playAt]);
+  }, []);
 
   const next = useCallback(() => {
     if (!tracks.length) return;
-    playAt((currentIndex + 1 + tracks.length) % tracks.length);
-  }, [tracks.length, currentIndex, playAt]);
+    playIndex((currentIndex + 1 + tracks.length) % tracks.length);
+  }, [tracks.length, currentIndex, playIndex]);
 
   const prev = useCallback(() => {
     if (!tracks.length) return;
-    const a = audioRef.current;
+    const a = active();
     if (a && a.currentTime > 3) {
       a.currentTime = 0;
       return;
     }
-    playAt((currentIndex - 1 + tracks.length) % tracks.length);
-  }, [tracks.length, currentIndex, playAt]);
-
-  const seek = useCallback((t: number) => {
-    const a = audioRef.current;
-    if (a && Number.isFinite(t)) a.currentTime = t;
-  }, []);
+    playIndex((currentIndex - 1 + tracks.length) % tracks.length);
+  }, [tracks.length, currentIndex, playIndex]);
 
   const setVolume = useCallback((v: number) => {
     setVolumeState(v);
     if (v > 0) setMuted(false);
-    try {
-      localStorage.setItem("fm-volume", String(v));
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  const save = useCallback(
-    async (row: StoredTrack) => {
-      if (!persistent) return;
-      try {
-        await idbPut("tracks", row);
-      } catch {
-        setPersistent(false);
-      }
-    },
-    [persistent],
-  );
-
-  const addFiles = useCallback(
-    async (files: FileList | File[]) => {
-      const list = Array.from(files).filter((f) => f.type.startsWith("audio/") || AUDIO_EXT.test(f.name));
-      const base = stored.length ? Math.max(...stored.map((s) => s.order)) + 1 : 0;
-      const rows: StoredTrack[] = list.map((f, i) => ({
-        id: newId(),
-        title: titleFromFile(f.name),
-        order: base + i,
-        audio: f,
-        addedAt: Date.now(),
-      }));
-      for (const r of rows) await save(r);
-      setStored((s) => [...s, ...rows]);
-      return rows.length;
-    },
-    [stored, save],
-  );
-
-  const update = useCallback(
-    async (id: string, patch: Partial<StoredTrack>) => {
-      const row = stored.find((s) => s.id === id);
-      if (!row) return;
-      const nextRow = { ...row, ...patch };
-      await save(nextRow);
-      setStored((s) => s.map((x) => (x.id === id ? nextRow : x)));
-    },
-    [stored, save],
-  );
-
-  const setCover = useCallback((id: string, file: File) => update(id, { cover: file }), [update]);
-  const rename = useCallback((id: string, title: string) => update(id, { title: title.trim() || "untitled song" }), [update]);
-
-  const remove = useCallback(
-    async (id: string) => {
-      const row = stored.find((s) => s.id === id);
-      if (id === currentId) {
-        audioRef.current?.pause();
-        wantPlay.current = false;
-        setCurrentId(null);
-      }
-      if (persistent) await idbDelete("tracks", id).catch(() => undefined);
-      if (row) {
-        for (const b of [row.audio, row.cover]) {
-          if (!b) continue;
-          const u = urlCache.current.get(b);
-          if (u) URL.revokeObjectURL(u);
-          urlCache.current.delete(b);
-        }
-      }
-      setStored((s) => s.filter((x) => x.id !== id));
-    },
-    [stored, currentId, persistent],
-  );
-
-  const move = useCallback(
-    async (id: string, dir: -1 | 1) => {
-      const i = stored.findIndex((s) => s.id === id);
-      const j = i + dir;
-      if (i < 0 || j < 0 || j >= stored.length) return;
-      const copy = [...stored];
-      const moved = copy[i]!;
-      copy[i] = copy[j]!;
-      copy[j] = moved;
-      const reOrdered = copy.map((s, k) => ({ ...s, order: k }));
-      setStored(reOrdered);
-      await save(reOrdered[i]!);
-      await save(reOrdered[j]!);
-    },
-    [stored, save],
-  );
+    const a = active();
+    if (a) ramp(a, a.volume, v, 120);
+  }, [ramp]);
 
   const api: MusicApi = {
     tracks,
@@ -313,51 +242,51 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     duration,
     volume,
     muted,
+    needsTap,
     error,
-    ready,
-    persistent,
-    playAt,
+    playAt: playIndex,
     toggle,
     next,
     prev,
-    seek,
     setVolume,
     toggleMute: () => setMuted((m) => !m),
-    addFiles,
-    setCover,
-    rename,
-    remove,
-    move,
   };
+
+  // both <audio> elements share handlers, but only the active one reports state.
+  const handlers = (idx: 0 | 1) => ({
+    onPlay: () => {
+      if (activeRef.current === idx) setIsPlaying(true);
+    },
+    onPause: () => {
+      if (activeRef.current === idx) setIsPlaying(false);
+    },
+    onTimeUpdate: (e: React.SyntheticEvent<HTMLAudioElement>) => {
+      if (activeRef.current === idx) setTime(e.currentTarget.currentTime);
+    },
+    onLoadedMetadata: (e: React.SyntheticEvent<HTMLAudioElement>) => {
+      if (activeRef.current === idx) {
+        const d = e.currentTarget.duration;
+        setDuration(Number.isFinite(d) ? d : 0);
+        setTime(0);
+      }
+    },
+    onEnded: () => {
+      if (activeRef.current !== idx || !wantsPlay.current) return;
+      if (tracks.length > 1) playIndex((currentIndex + 1) % tracks.length);
+      else setIsPlaying(false);
+    },
+    onError: () => {
+      if (activeRef.current !== idx || !current) return;
+      setIsPlaying(false);
+      setError(`couldn't load "${current.title}". try skipping to the next song?`);
+    },
+  });
 
   return (
     <MusicContext.Provider value={api}>
       {children}
-      <audio
-        ref={audioRef}
-        preload="metadata"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
-        onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
-        onLoadedMetadata={(e) => {
-          setDuration(Number.isFinite(e.currentTarget.duration) ? e.currentTarget.duration : 0);
-          setTime(0);
-        }}
-        onEnded={() => {
-          wantPlay.current = true;
-          if (tracks.length > 1) next();
-          else setIsPlaying(false);
-        }}
-        onError={() => {
-          if (!current) return;
-          setIsPlaying(false);
-          setError(
-            current.source === "bundled"
-              ? `couldn't load “${current.title}”. check the file is in public/assets/music and the path in the content file matches.`
-              : `this browser couldn't play “${current.title}”. try an mp3 version?`,
-          );
-        }}
-      />
+      <audio ref={audioRefs[0]} preload="auto" {...handlers(0)} />
+      <audio ref={audioRefs[1]} preload="auto" {...handlers(1)} />
     </MusicContext.Provider>
   );
 }
