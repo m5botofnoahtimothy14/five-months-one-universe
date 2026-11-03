@@ -22,7 +22,7 @@ function Home() {
         <div className="welcome-art">
           <div className="orbit orbit-one" />
           <div className="orbit orbit-two" />
-          <span className="floating-note note-one">5 months ♡</span>
+          <span className="floating-note note-one">6 months ♡</span>
           <span className="floating-note note-two">you + me</span>
           <div className="home-mascot">
             <Mascot animal="teddy" mood="love" prop="heart" title="A teddy holding a heart" />
