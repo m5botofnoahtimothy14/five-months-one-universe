@@ -54,7 +54,6 @@ export const sections = [
   { path: "/", label: "Welcome", emoji: "🏠" },
   { path: "/quiz", label: "The quiz", emoji: "📝" },
   { path: "/machine", label: "Affection machine", emoji: "💗" },
-  { path: "/timeline", label: "Our six months", emoji: "📸" },
   { path: "/teddy", label: "Your teddy", emoji: "🧸" },
   { path: "/letter", label: "The letter", emoji: "💌" },
   { path: "/surprise", label: "The surprise", emoji: "🎁" },
@@ -369,67 +368,6 @@ export const pods: Pod[] = [
       "if i'm the reason, i'm sorry and i want to understand. if i'm not, i'm on your side, always. either way you're allowed to feel this",
       "breathe in… breathe out… ok you can still be mad, i just wanted you to have oxygen hehe. love you even when you're grumpy",
     ],
-  },
-];
-
-/* ---------------- TIMELINE ---------------- */
-
-export type TimelineMonth = {
-  month: number;
-  title: string;
-  /** editable: add your own date or feeling, e.g. "the start of everything" */
-  label: string;
-  tone: Tone;
-  sticker: string;
-  story: string;
-  moments: string[];
-};
-
-export const timeline: TimelineMonth[] = [
-  {
-    month: 1,
-    title: "Sleepy Eyes at Assembly",
-    label: "[Month 1 — add your own date or note here]",
-    tone: "blush",
-    sticker: "👀",
-    story: "the very first glimpse. you, at assembly, with the sleepiest eyes ever. and somehow that was it for me.",
-    moments: ["first time seeing you", "trying (and failing) to act normal", "the first messages"],
-  },
-  {
-    month: 2,
-    title: "The Late-Night Era",
-    label: "[Month 2 — add your own date or note here]",
-    tone: "lavender",
-    sticker: "🌙",
-    story: "the “ok last message” that was never the last message. talking until our eyes gave up.",
-    moments: ["late-night chats", "random deep talks", "saying goodnight 6 times"],
-  },
-  {
-    month: 3,
-    title: "Duets & Tea",
-    label: "[Month 3 — add your own date or note here]",
-    tone: "peach",
-    sticker: "🎤",
-    story: "singing together (badly, beautifully) and spilling all the tea like best friends who are also in love.",
-    moments: ["our little concerts", "gossip sessions ☕", "laughing way too hard"],
-  },
-  {
-    month: 4,
-    title: "Husband & Baby",
-    label: "[Month 4 — add your own date or note here]",
-    tone: "butter",
-    sticker: "💍",
-    story: "you started calling me husband and i became professionally annoying. the teasing reached legendary levels.",
-    moments: ["nicknames everywhere", "BABBBBBYYYYYYYY", "teasing you nonstop"],
-  },
-  {
-    month: 5,
-    title: "Far, But Close",
-    label: "[Month 5 — add your own date or note here]",
-    tone: "mint",
-    sticker: "🌍",
-    story: "long-distance messages, missing each other like crazy, and still choosing us every single day.",
-    moments: ["missing you a lot", "good morning texts", "planning more memories"],
   },
 ];
 
