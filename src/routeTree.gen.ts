@@ -17,7 +17,6 @@ import { Route as PodsRouteImport } from './routes/pods'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as SurpriseRouteImport } from './routes/surprise'
 import { Route as TeddyRouteImport } from './routes/teddy'
-import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,11 +58,6 @@ const TeddyRoute = TeddyRouteImport.update({
   path: '/teddy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TimelineRoute = TimelineRouteImport.update({
-  id: '/timeline',
-  path: '/timeline',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,7 +68,6 @@ export interface FileRoutesByFullPath {
   '/quiz': typeof QuizRoute
   '/surprise': typeof SurpriseRoute
   '/teddy': typeof TeddyRoute
-  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,7 +103,6 @@ export interface FileRouteTypes {
     | '/quiz'
     | '/surprise'
     | '/teddy'
-    | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,7 +136,6 @@ export interface RootRouteChildren {
   QuizRoute: typeof QuizRoute
   SurpriseRoute: typeof SurpriseRoute
   TeddyRoute: typeof TeddyRoute
-  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -205,13 +196,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeddyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/timeline': {
-      id: '/timeline'
-      path: '/timeline'
-      fullPath: '/timeline'
-      preLoaderRoute: typeof TimelineRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -224,7 +208,6 @@ const rootRouteChildren: RootRouteChildren = {
   QuizRoute: QuizRoute,
   SurpriseRoute: SurpriseRoute,
   TeddyRoute: TeddyRoute,
-  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
