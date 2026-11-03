@@ -1,4 +1,4 @@
-# Five Months, One Universe ♡
+# Six Months, One Universe ♡
 
 A small anniversary scrapbook that Noah made for Khadija. It is built with React, TanStack Start, TypeScript, Vite and Tailwind CSS.
 
@@ -7,12 +7,13 @@ A small anniversary scrapbook that Noah made for Khadija. It is built with React
 **Requirements:** Node.js 20+ and npm.
 
 1. Download or clone this repository.
-2. Open the project folder in a terminal.
-3. Run `npm install` once. This needs internet access.
-4. Run `npm run dev`.
-5. Open the local address printed in the terminal.
+2. Extract the contents of `anniversary-music-assets.zip` into the project root. It adds the `public/assets/music/` folder and the four uploaded tracks.
+3. Open the project folder in a terminal.
+4. Run `npm install` once. This needs internet access.
+5. Run `npm run dev`.
+6. Open the local address printed in the terminal.
 
-On Windows, you can double-click `START-OFFLINE.bat` after the first install. Keep the terminal open while the site runs.
+On Windows, double-click `START-OFFLINE.bat` after the first install. Keep the terminal open while the site runs.
 
 ## Build and checks
 
@@ -22,31 +23,35 @@ npm run lint
 npm test
 ```
 
+GitHub Actions also runs the test suite and production build on pushes and pull requests.
+
 ## Edit the personal parts
 
-Open `src/content/anniversary.ts`. This is the main content file. It contains the quiz, messages, comfort pods, timeline, letter, and final surprise.
+Open `src/content/anniversary.ts`. This is the main content file. It contains the quiz, messages, comfort pods, six-month letter, playlist, and final surprise.
 
-- Keep the real memories. Do not add a date unless it is correct.
-- The five timeline labels are placeholders. Replace them when the dates are known.
-- The music list is empty on purpose. Add only the songs you choose.
-- The letter already ends with the two lines you asked for.
+- The old five-month memories page has been removed.
+- The letter is text only. It has no GIF or sticker blocks.
+- The playlist starts with the four unique audio uploads. The duplicate WAV take was not added twice.
+- The music files are MP3 copies made from the uploaded WAV files. The originals remain unchanged in your Library.
+- Do not add dates or memories unless they are correct.
 
-## Music and images
+## Music files
 
-The music player starts empty. Khadija can add her own audio files in the browser. The site does not upload those files to a server. Browser storage support can vary, so keep the original audio files too.
+The tracks are in `public/assets/music/`:
 
-You can add shared images or GIFs under `public/assets/` and update the matching entries in `src/content/anniversary.ts`.
+- If You'll Let Me (Take 3)
+- If You Let Go
+- Myfav
+- Surprise Element
+
+The audio player does not autoplay. Khadija must press play. The player supports play/pause, next/previous, seek, volume, and a queue.
 
 ## Offline use
 
-The website has no login, database, analytics, payment flow, or external API. The fonts use local system fallbacks. After `npm install` has completed, the local development server can run without a hosted service.
+The site has no login, database, analytics, payment flow, or external API. Fonts use local system fallbacks. After `npm install` has completed and the music archive has been extracted, the local development server can run without a hosted service.
 
-The first dependency install needs internet. The local server must stay open while the website is in use.
+The first dependency install needs internet. Keep the local server open while the website is in use.
 
-## Deployment
+## Deployment and privacy
 
-The repository includes Vercel configuration for TanStack Start. Deployment is a separate step. Do not assume a push is private: anyone with access to the public repository or deployed URL may view the site.
-
-## Privacy
-
-There is no login or access control. The noindex metadata is only a search-engine hint. It does not make the URL private. Avoid adding sensitive information.
+Deployment is separate from code changes. This site has no login or access control. The noindex metadata is only a search-engine hint. It does not make the URL private. Avoid adding sensitive information.
