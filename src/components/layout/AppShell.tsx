@@ -106,7 +106,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="ambient ambient-a" aria-hidden />
       <div className="ambient ambient-b" aria-hidden />
       <header className="anniversary-header">
-        <Link to="/" className="anniversary-brand" aria-label="Home: Five Months, One Universe">
+        <Link to="/" className="anniversary-brand" aria-label="Home: Six Months, One Universe">
           <span aria-hidden>♡</span> <b>six months, one universe</b>
         </Link>
         <div className="header-actions">
