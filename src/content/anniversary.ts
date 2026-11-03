@@ -447,7 +447,7 @@ export const letter = {
   title: "a letter (but make it texting)",
   greeting: "HEYYYYYYYY BABYYYYYYYY!! SIX MONTHSSSS?????",
   blocks: [
-    { type: "p", text: "like BRO. five whole months?? how did that even happen. it feels like yesterday and also like i've known you forever yk. idk how to write proper letters so i'm just gonna text you this but longer hehe" },
+    { type: "p", text: "like BRO. six whole months?? how did that even happen. it feels like yesterday and also like i've known you forever yk. idk how to write proper letters so i'm just gonna text you this but longer hehe" },
     { type: "p", text: "okay so. remember assembly? that first time i saw you?? you had the SLEEPIEST eyes ever 😭 and i was just standing there like… who is she. i still think about that moment sooo much. like randomly. in the middle of the day. it just pops up and i smile like an idiot" },
     { type: "p", text: "and then the late-night conversations started and honestly they're my favourite part of every day. the “ok last message” that turns into another hour. the random deep talks. the stupid jokes at 2am. i love all of it" },
     { type: "p", text: "also our singing?? elite. off-key sometimes, but elite. and the TEA. sharing gossip with you is genuinely one of my top hobbies now. you're my gossip partner for life, no takebacks ☕" },
