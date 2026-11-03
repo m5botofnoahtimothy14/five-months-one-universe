@@ -16,19 +16,19 @@ export const ACCEPTED_AUDIO = ".mp3,.m4a,.wav,.ogg,audio/mpeg,audio/mp4,audio/x-
 type StoredTrack = {
   id: string;
   title: string;
-  artist?: string;
+  artist?: string | undefined;
   order: number;
   audio: Blob;
-  cover?: Blob;
+  cover?: Blob | undefined;
   addedAt: number;
 };
 
 export type Track = {
   id: string;
   title: string;
-  artist?: string;
+  artist?: string | undefined;
   src: string;
-  cover?: string;
+  cover?: string | undefined;
   source: "bundled" | "local";
 };
 
@@ -132,7 +132,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   }, [stored, urlFor]);
 
   const currentIndex = tracks.findIndex((t) => t.id === currentId);
-  const current = currentIndex >= 0 ? tracks[currentIndex] : null;
+  const current: Track | null = currentIndex >= 0 ? (tracks[currentIndex] ?? null) : null;
 
   // keep audio element in sync with the chosen track
   useEffect(() => {
@@ -293,10 +293,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       const j = i + dir;
       if (i < 0 || j < 0 || j >= stored.length) return;
       const copy = [...stored];
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+      const moved = copy[i]!;
+      copy[i] = copy[j]!;
+      copy[j] = moved;
       const reOrdered = copy.map((s, k) => ({ ...s, order: k }));
       setStored(reOrdered);
-      for (const r of [reOrdered[i], reOrdered[j]]) await save(r);
+      await save(reOrdered[i]!);
+      await save(reOrdered[j]!);
     },
     [stored, save],
   );

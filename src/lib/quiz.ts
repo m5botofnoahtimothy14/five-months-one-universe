@@ -10,5 +10,5 @@ export function scorePercent(score: number, total: number): number {
 export function resultFor(score: number, total: number, results: QuizResult[]): QuizResult {
   const pct = scorePercent(score, total);
   const sorted = [...results].sort((a, b) => b.min - a.min);
-  return sorted.find((r) => pct >= r.min) ?? sorted[sorted.length - 1];
+  return sorted.find((r) => pct >= r.min) ?? sorted[sorted.length - 1]!;
 }
