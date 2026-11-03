@@ -102,12 +102,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const current = step >= 0 ? sections[step] : undefined;
   return (
     <div className="anniversary-app">
-      <a href="#main" className="skip-link">skip to content</a>
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-paper focus:px-4 focus:py-3 focus:shadow-lg">Skip to main content</a>
       <div className="ambient ambient-a" aria-hidden />
       <div className="ambient ambient-b" aria-hidden />
       <header className="anniversary-header">
         <Link to="/" className="anniversary-brand" aria-label="Home: Five Months, One Universe">
-          <span aria-hidden>♡</span> <b>five months, one universe</b>
+          <span aria-hidden>♡</span> <b>six months, one universe</b>
         </Link>
         <div className="header-actions">
           {clean !== "/pods" && (
