@@ -8,7 +8,7 @@ import { useFx } from "@/components/fx/FxProvider";
 export const Route = createFileRoute("/surprise")({
   head: () => ({
     meta: [
-      { title: "The Final Surprise · Five Months, One Universe" },
+      { title: "The Final Surprise · Six Months, One Universe" },
       { name: "description", content: "One last wrapped-up gift with a final message inside." },
       { property: "og:title", content: "The Final Surprise" },
       { property: "og:description", content: "There is one more thing. It's wrapped up just for you." },
