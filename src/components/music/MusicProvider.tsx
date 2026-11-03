@@ -16,7 +16,7 @@ export const ACCEPTED_AUDIO = ".mp3,.m4a,.wav,.ogg,audio/mpeg,audio/mp4,audio/x-
 type StoredTrack = {
   id: string;
   title: string;
-  artist?: string;
+  artist?: string | undefined;
   order: number;
   audio: Blob;
   cover?: Blob;

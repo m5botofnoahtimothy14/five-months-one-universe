@@ -7,8 +7,9 @@ export function pickIndex(length: number, prev = -1): number {
 }
 
 export function pick<T>(list: readonly T[], prev?: T): T {
+  if (list.length === 0) throw new Error("pick() called with an empty list");
   const prevIndex = prev === undefined ? -1 : list.indexOf(prev);
-  return list[pickIndex(list.length, prevIndex)];
+  return list[pickIndex(list.length, prevIndex)]!;
 }
 
 /** Deterministic pseudo-random for stable SSR/hydration decorations. */
