@@ -474,13 +474,13 @@ export type BundledTrack = {
 export const music = {
   title: "OUR LITTLE PLAYLIST",
   subtitle: "press play when you're ready. nothing plays by itself, promise.",
-  /**
-   * Songs bundled with the website (work on every device after deploy).
-   * Put the files in public/assets/music/ and list them here. Example:
-   *   { title: "Our Song", artist: "Someone", src: "/assets/music/our-song.mp3", cover: "/assets/music/our-song.jpg" },
-   * Left empty on purpose — Noah picks the songs.
-   */
-  bundled: [] as BundledTrack[],
+  /** Audio uploaded for this anniversary site. Extract anniversary-music-assets.zip at the project root. */
+  bundled: [
+    { title: "If You'll Let Me (Take 3)", src: "/assets/music/If_You'll_Let_Me_%23Take3.mp3" },
+    { title: "If You Let Go", src: "/assets/music/If_you_ll_let_go.mp3" },
+    { title: "Myfav", src: "/assets/music/Myfav.mp3" },
+    { title: "Surprise Element", src: "/assets/music/surprise_element..hehe.mp3" },
+  ] as BundledTrack[],
 };
 
 /* ---------------- FINAL SURPRISE ---------------- */
